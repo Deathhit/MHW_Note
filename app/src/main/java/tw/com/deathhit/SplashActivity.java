@@ -7,6 +7,7 @@ import android.widget.Toast;
 
 import tw.com.deathhit.utility.function.NetworkManager;
 
+/**Splash activity for data loading.**/
 public final class SplashActivity extends tw.com.deathhit.core.BaseActivity implements DataHandler.OnDataRequestedListener{
     private DataHandler dataHandler;
 
