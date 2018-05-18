@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resources>
+    <declare-styleable name="FixedAspectFrameLayout">
+        <attr name="layoutWidthRatio" format="integer|float"/>
+        <attr name="layoutHeightRatio" format="integer|float"/>
+    </declare-styleable>
+    <declare-styleable name="MaskableFrameLayout">
+        <attr name="antiAliasing" format="boolean"/>
+        <attr name="drawableMask" format="reference"/>
+        <attr name="porterDuffMode">
+            <enum name="add" value="0"/>
+            <enum name="clear" value="1"/>
+            <enum name="darken" value="2"/>
+            <enum name="dst" value="3"/>
+            <enum name="dstAtop" value="4"/>
+            <enum name="dstIn" value="5"/>
+            <enum name="dstOut" value="6"/>
+            <enum name="dstOver" value="7"/>
+            <enum name="lighten" value="8"/>
+            <enum name="multiply" value="9"/>
+            <enum name="overlay" value="10"/>
+            <enum name="screen" value="11"/>
+            <enum name="src" value="12"/>
+            <enum name="srcAtop" value="13"/>
+            <enum name="srcIn" value="14"/>
+            <enum name="srcOut" value="15"/>
+            <enum name="srcOver" value="16"/>
+            <enum name="xor" value="17"/>
+        </attr>
+    </declare-styleable>
+</resources>

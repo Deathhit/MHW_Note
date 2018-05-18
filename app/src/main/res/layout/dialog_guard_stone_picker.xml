@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical">
+
+    <include layout="@layout/block_dialog_equipment_picker"/>
+
+    <tw.com.deathhit.utility.widget.FixedAspectFrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layoutHeightRatio="@integer/tab_bar_height_ratio"
+        app:layoutWidthRatio="@integer/tab_bar_width_ratio">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginEnd="10dp"
+            android:layout_marginStart="40dp"
+            android:gravity="center_vertical"
+            android:text="@string/level"
+            android:textSize="@dimen/text_size_large" />
+
+    </tw.com.deathhit.utility.widget.FixedAspectFrameLayout>
+
+    <tw.com.deathhit.utility.widget.FixedAspectFrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layoutHeightRatio="@integer/tab_bar_height_ratio"
+        app:layoutWidthRatio="@integer/tab_bar_width_ratio">
+
+        <Spinner
+            android:id="@+id/spinner2"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginEnd="20dp"
+            android:layout_marginStart="20dp" />
+    </tw.com.deathhit.utility.widget.FixedAspectFrameLayout>
+
+</LinearLayout>

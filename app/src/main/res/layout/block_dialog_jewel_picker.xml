@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <tw.com.deathhit.utility.widget.FixedAspectFrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layoutHeightRatio="@integer/tab_bar_height_ratio"
+        app:layoutWidthRatio="@integer/tab_bar_width_ratio">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginEnd="10dp"
+            android:layout_marginStart="40dp"
+            android:gravity="center_vertical"
+            android:text="@string/jewel"
+            android:textSize="@dimen/text_size_large" />
+
+    </tw.com.deathhit.utility.widget.FixedAspectFrameLayout>
+
+    <tw.com.deathhit.utility.widget.FixedAspectFrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layoutHeightRatio="@integer/tab_bar_height_ratio"
+        app:layoutWidthRatio="@integer/tab_bar_width_ratio">
+
+        <Spinner
+            android:id="@+id/spinner2"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginEnd="20dp"
+            android:layout_marginStart="20dp" />
+    </tw.com.deathhit.utility.widget.FixedAspectFrameLayout>
+
+    <tw.com.deathhit.utility.widget.FixedAspectFrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layoutHeightRatio="@integer/tab_bar_height_ratio"
+        app:layoutWidthRatio="@integer/tab_bar_width_ratio">
+
+        <Spinner
+            android:id="@+id/spinner3"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginEnd="20dp"
+            android:layout_marginStart="20dp" />
+    </tw.com.deathhit.utility.widget.FixedAspectFrameLayout>
+
+    <tw.com.deathhit.utility.widget.FixedAspectFrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layoutHeightRatio="@integer/tab_bar_height_ratio"
+        app:layoutWidthRatio="@integer/tab_bar_width_ratio">
+
+        <Spinner
+            android:id="@+id/spinner4"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginEnd="20dp"
+            android:layout_marginStart="20dp" />
+    </tw.com.deathhit.utility.widget.FixedAspectFrameLayout>
+
+</LinearLayout>

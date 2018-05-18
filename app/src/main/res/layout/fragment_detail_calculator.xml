@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <ScrollView
+        android:id="@+id/scrollView"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:fillViewport="true">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:descendantFocusability="blocksDescendants"
+            android:orientation="vertical">
+
+            <include
+                android:id="@+id/block"
+                layout="@layout/block_detail_introduction" />
+
+            <include
+                android:id="@+id/block2"
+                layout="@layout/block_detail_attributes" />
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/recyclerView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+        </LinearLayout>
+    </ScrollView>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:orientation="vertical">
+
+        <tw.com.deathhit.utility.widget.FixedAspectFrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            app:layoutHeightRatio="@integer/tab_bar_height_ratio"
+            app:layoutWidthRatio="@integer/tab_bar_width_ratio">
+
+            <tw.com.deathhit.utility.widget.TabBar
+                android:id="@+id/tabBar"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" >
+
+                <TextView
+                    android:id="@+id/tab"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="@string/position_head"
+                    android:textSize="@dimen/text_size_large" />
+
+                <TextView
+                    android:id="@+id/tab2"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="@string/position_body"
+                    android:textSize="@dimen/text_size_large" />
+
+                <TextView
+                    android:id="@+id/tab3"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="@string/position_arms"
+                    android:textSize="@dimen/text_size_large" />
+
+            </tw.com.deathhit.utility.widget.TabBar>
+        </tw.com.deathhit.utility.widget.FixedAspectFrameLayout>
+
+        <tw.com.deathhit.utility.widget.FixedAspectFrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            app:layoutHeightRatio="@integer/tab_bar_height_ratio"
+            app:layoutWidthRatio="@integer/tab_bar_width_ratio">
+
+            <tw.com.deathhit.utility.widget.TabBar
+                android:id="@+id/tabBar2"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" >
+
+                <TextView
+                    android:id="@+id/tab4"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="@string/position_waist"
+                    android:textSize="@dimen/text_size_large" />
+
+                <TextView
+                    android:id="@+id/tab5"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="@string/position_legs"
+                    android:textSize="@dimen/text_size_large" />
+
+                <TextView
+                    android:id="@+id/tab6"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="@string/guard_stone"
+                    android:textSize="@dimen/text_size_large" />
+
+                <TextView
+                    android:id="@+id/tab7"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="@string/weapon"
+                    android:textSize="@dimen/text_size_large" />
+
+            </tw.com.deathhit.utility.widget.TabBar>
+
+        </tw.com.deathhit.utility.widget.FixedAspectFrameLayout>
+    </LinearLayout>
+
+</LinearLayout>
