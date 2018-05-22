@@ -23,9 +23,10 @@ public abstract class EditorFragment extends BaseFragment implements TextView.On
     private boolean actOnTextChanged = false;
     private boolean hideSoftKeyboardOnDone = true;
 
-    /**BaseFragment method**/
     @Override
-    protected void onViewCreated(Bundle savedInstanceStates){
+    public void onCreate(Bundle savedInstanceStates){
+        super.onCreate(savedInstanceStates);
+
         validationResults.clear();  //validationResults needs to be clear when view is recreated
     }
 

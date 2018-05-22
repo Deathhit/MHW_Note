@@ -2,51 +2,27 @@ package tw.com.deathhit.core;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import java.lang.ref.SoftReference;
-
 /**Fragment class that provides the basic functionality. Extend it to create your fragment. Do not
  * keep any strong reference to view objects as property. This will kill the effect of view recycling.**/
 public abstract class BaseFragment extends Fragment {
-    private SoftReference<View> view;
-    
-    private boolean isViewCreated = false; //The value is true if onCreateView() returns the result of onCreateViewOnce() instead of view
+    /**Force to implement onCreateView() since it is the common case.**/
+    @Override
+    public abstract View onCreateView(@NonNull LayoutInflater inflater,@Nullable ViewGroup container, @Nullable Bundle savedInstanceState);
 
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        if(view != null && view.get() != null) {
-            isViewCreated = false;
-
-            return view.get();
-        } else {
-            isViewCreated = true;
-
-            view = new SoftReference<>(onCreateViewOnce(inflater, container, savedInstanceState));
-
-            return view.get();
-        }
-    }
-
-    @Override
-    public void onActivityCreated(Bundle savedInstanceState) {
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-        if(isViewCreated)
-            onViewCreated(savedInstanceState);
-    }
+        View view = getView();
 
-    /**This is a life cycle method called within onActivityCreated(), and it is triggered only when onCreateViewOnce() is called to create view for fragment.**/
-    protected void onViewCreated(Bundle savedInstanceStates){
-
-    }
-
-    /**Tell fragment to recreate view.**/
-    public void notifyToRefresh(){
-        view = null;
+        if(view != null)
+            onBindView(view, savedInstanceState);
     }
 
     /**BaseActivity will invoke this method from its current BaseFragment. Return true if you want to consume the event.**/
@@ -54,6 +30,6 @@ public abstract class BaseFragment extends Fragment {
         return false;
     }
 
-    /**Create view only one time to reuse created view.**/
-    public abstract View onCreateViewOnce(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState);
+    /**Bind view with data after it is created.**/
+    public abstract void onBindView(@NonNull View view, @Nullable Bundle savedInstanceState);
 }

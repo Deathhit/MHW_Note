@@ -1,4 +1,4 @@
-package tw.com.deathhit.components.list;
+package tw.com.deathhit.view_model.list;
 
 import android.support.v7.widget.SearchView;
 import android.widget.TextView;

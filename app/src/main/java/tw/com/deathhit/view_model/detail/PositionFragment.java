@@ -1,6 +1,8 @@
-package tw.com.deathhit.components.detail;
+package tw.com.deathhit.view_model.detail;
 
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -19,14 +21,15 @@ import tw.com.deathhit.R;
 import tw.com.deathhit.adapters.recycler_view.DataAdapter;
 import tw.com.deathhit.utils.NoScrollingLinearLayoutManager;
 
-public final class EquipmentPositionFragment extends BaseFragment {
+public final class PositionFragment extends BaseFragment {
     private static final int ID_INTRODUCTION_BLOCK = R.id.block;
     private static final int ID_ATTRIBUTES_BLOCK = R.id.block2;
 
-    private static final int ID_SKILL_RECYCLER_VIEW = R.id.recyclerView;
-    private static final int ID_MATERIALS_RECYCLER_VIEW = R.id.recyclerView2;
+    private static final int ID_RECYCLER_VIEW = R.id.recyclerView;
     @Override
-    public View onCreateViewOnce(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        super.onCreateView(inflater, container, savedInstanceState);
+
         if(getArguments() == null)
             return null;
 
@@ -107,10 +110,29 @@ public final class EquipmentPositionFragment extends BaseFragment {
 
         textView.setText(text);
 
-        //Set up recycler view
-        ArrayList<String> items;
+        //Configure recycler view
+        RecyclerView recyclerView = view.findViewById(ID_RECYCLER_VIEW);
 
-        RecyclerView recyclerView = view.findViewById(ID_SKILL_RECYCLER_VIEW);
+        recyclerView.setLayoutManager(new NoScrollingLinearLayoutManager(getContext()));
+
+        recyclerView.addItemDecoration(new DividerItemDecoration(container.getContext(), DividerItemDecoration.VERTICAL));
+
+        recyclerView.setHasFixedSize(true);
+
+        return view;
+    }
+
+    @Override
+    public void onBindView(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        Bundle args = getArguments();
+
+        assert args != null;
+        String path = args.getString(Constants.ARGUMENT_PATH, null);
+
+        //Set up recycler view
+        ArrayList<String> items = null;
+
+        RecyclerView recyclerView = view.findViewById(ID_RECYCLER_VIEW);
 
         ArrayList<String> temp = dataHandler.getChildrenPaths(path + "/Skill");
 
@@ -118,7 +140,7 @@ public final class EquipmentPositionFragment extends BaseFragment {
             items = new ArrayList<>(temp.size() + 1);
 
             for (String s : temp) {
-                value = dataHandler.getValue(s);
+                String value = dataHandler.getValue(s);
 
                 if(value != null) {
                     String extraText = "  " + getString(R.string.level) + " : " + value.replaceAll("[^\\d]", "");
@@ -130,61 +152,35 @@ public final class EquipmentPositionFragment extends BaseFragment {
             Collections.sort(items);
 
             items.add(0, getString(R.string.skill));
-
-            recyclerView.setLayoutManager(new NoScrollingLinearLayoutManager(getContext()));
-
-            recyclerView.addItemDecoration(new DividerItemDecoration(container.getContext(), DividerItemDecoration.VERTICAL));
-
-            recyclerView.setHasFixedSize(true);
-
-            recyclerView.setAdapter(new DataAdapter(dataHandler, items));
-
         }else
             recyclerView.setVisibility(View.GONE);
 
         temp = dataHandler.getChildrenPaths(path + "/Assets");
 
-        recyclerView = view.findViewById(ID_MATERIALS_RECYCLER_VIEW);
-
         if(temp.size() > 0) {
-            items = new ArrayList<>(temp.size() + 1);
+            ArrayList<String> temp2 = new ArrayList<>(temp.size() + 1);
 
             for (String s : temp) {
-                value = dataHandler.getValue(s);
+                String value = dataHandler.getValue(s);
 
                 if(value != null) {
                     String extraText = " x " + value.replaceAll("[^\\d]", "");
 
-                    items.add("/MonsterAssetsDetail/" + value.split("\\s*x")[0] + Constants.OPERATOR_EXTRA_TEXT + extraText);
+                    temp2.add("/MonsterAssetsDetail/" + value.split("\\s*x")[0] + Constants.OPERATOR_EXTRA_TEXT + extraText);
                 }
             }
 
-            Collections.sort(items);
+            Collections.sort(temp2);
 
-            items.add(0, getString(R.string.required_materials));
+            temp2.add(0, getString(R.string.required_materials));
 
-            recyclerView.setLayoutManager(new NoScrollingLinearLayoutManager(getContext()));
-
-            recyclerView.addItemDecoration(new DividerItemDecoration(container.getContext(), DividerItemDecoration.VERTICAL));
-
-            recyclerView.setHasFixedSize(true);
+            if(items == null)
+                items = temp2;
+            else
+                items.addAll(temp2);
 
             recyclerView.setAdapter(new DataAdapter(dataHandler, items));
         }else
             recyclerView.setVisibility(View.GONE);
-
-        return view;
-    }
-
-    @Override
-    public void onDestroyView() {
-        View view = getView();
-
-        assert view != null;
-        RecyclerView recyclerView = view.findViewById(ID_MATERIALS_RECYCLER_VIEW);
-
-        recyclerView.setAdapter(null);
-
-        super.onDestroyView();
     }
 }

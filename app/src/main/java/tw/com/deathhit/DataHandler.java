@@ -24,9 +24,9 @@ public final class DataHandler{
     private static final String OPERATOR_ATTRIBUTE = Constants.OPERATOR_ATTRIBUTES;
     private static final String OPERATOR_PATH = Constants.OPERATOR_PATH;
 
-    private final SharedPreferences data;
-
     private static final String NODE_DATA_VERSION = Constants.NODE_DATA_VERSION;
+
+    private final SharedPreferences data;
 
     private VersionEventListener versionEventListener = new VersionEventListener();
 

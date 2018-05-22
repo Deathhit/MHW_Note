@@ -1,4 +1,4 @@
-package tw.com.deathhit.comparators;
+package tw.com.deathhit.utils.comparators;
 
 import java.util.Comparator;
 

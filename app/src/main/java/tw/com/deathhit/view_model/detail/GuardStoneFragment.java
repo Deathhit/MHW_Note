@@ -1,6 +1,8 @@
-package tw.com.deathhit.components.detail;
+package tw.com.deathhit.view_model.detail;
 
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -25,7 +27,9 @@ public final class GuardStoneFragment extends BaseFragment {
     private static final int ID_RECYCLER_VIEW = R.id.recyclerView;
 
     @Override
-    public View onCreateViewOnce(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        super.onCreateView(inflater, container, savedInstanceState);
+
         if(getArguments() == null)
             return null;
 
@@ -51,6 +55,25 @@ public final class GuardStoneFragment extends BaseFragment {
         text = dataHandler.getValue(path + "/Description");
 
         textView.setText(text);
+
+        //Configure recycler view
+        RecyclerView recyclerView = view.findViewById(ID_RECYCLER_VIEW);
+
+        recyclerView.setLayoutManager(new NoScrollingLinearLayoutManager(getContext()));
+
+        recyclerView.addItemDecoration(new DividerItemDecoration(container.getContext(), DividerItemDecoration.VERTICAL));
+
+        recyclerView.setHasFixedSize(true);
+
+        return view;
+    }
+
+    @Override
+    public void onBindView(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        Bundle args = getArguments();
+
+        assert args != null;
+        String path = args.getString(Constants.ARGUMENT_PATH, null);
 
         ArrayList<String> items = dataHandler.getChildrenPaths(path + "/Skill");
 
@@ -81,17 +104,9 @@ public final class GuardStoneFragment extends BaseFragment {
         //Set up recycler view
         RecyclerView recyclerView = view.findViewById(ID_RECYCLER_VIEW);
 
-        if(items.size() > 0){
-            recyclerView.setLayoutManager(new NoScrollingLinearLayoutManager(getContext()));
-
-            recyclerView.addItemDecoration(new DividerItemDecoration(container.getContext(), DividerItemDecoration.VERTICAL));
-
-            recyclerView.setHasFixedSize(true);
-
+        if(items.size() > 0)
             recyclerView.setAdapter(new DataAdapter(dataHandler, items));
-        }else
+        else
             recyclerView.setVisibility(View.GONE);
-
-        return view;
     }
 }

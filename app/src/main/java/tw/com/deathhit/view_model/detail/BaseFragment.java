@@ -1,6 +1,7 @@
-package tw.com.deathhit.components.detail;
+package tw.com.deathhit.view_model.detail;
 
 import android.os.Bundle;
+import android.support.annotation.CallSuper;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -16,11 +17,12 @@ abstract class BaseFragment extends tw.com.deathhit.core.BaseFragment{
 
     protected DataHandler dataHandler;
 
+    @CallSuper
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         dataHandler = new DataHandler(inflater.getContext(), Constants.STORAGE_DATABASE);
 
-        return super.onCreateView(inflater, container, savedInstanceState);
+        return null;
     }
 
     @Override

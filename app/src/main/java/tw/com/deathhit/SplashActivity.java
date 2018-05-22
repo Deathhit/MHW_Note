@@ -2,26 +2,23 @@ package tw.com.deathhit;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.widget.Toast;
 
 import tw.com.deathhit.utility.function.NetworkManager;
 
-/**Splash activity for data loading.**/
 public final class SplashActivity extends tw.com.deathhit.core.BaseActivity implements DataHandler.OnDataRequestedListener{
     private DataHandler dataHandler;
 
     @Override
-    protected void onCreateView(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_splash);
 
         setRestartApplicationOnNewProcess(false);
 
         dataHandler = new DataHandler(this, Constants.STORAGE_DATABASE);
-    }
 
-    @Override
-    protected void onBindViewOnce() {
         if(NetworkManager.getConnectivityStatus(this) == NetworkManager.TYPE_NOT_CONNECTED)
             toast(getString(R.string.no_internet), Toast.LENGTH_LONG);
 
@@ -34,11 +31,6 @@ public final class SplashActivity extends tw.com.deathhit.core.BaseActivity impl
     @Override
     public void onBackPressed() {
         //Disable onBackPressed()
-    }
-
-    @Override
-    protected Object request(int requestType, @Nullable Object... args) {
-        return null;
     }
 
     @Override

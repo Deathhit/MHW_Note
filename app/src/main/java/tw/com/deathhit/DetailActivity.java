@@ -8,22 +8,27 @@ import com.google.android.gms.ads.AdView;
 import com.google.android.gms.ads.MobileAds;
 
 import tw.com.deathhit.core.BaseFragment;
-import tw.com.deathhit.components.detail.EquipmentPositionFragment;
-import tw.com.deathhit.components.detail.EquipmentSeriesFragment;
-import tw.com.deathhit.components.detail.GuardStoneFragment;
-import tw.com.deathhit.components.detail.GuardStoneUpgradeFragment;
-import tw.com.deathhit.components.detail.JewelFragment;
-import tw.com.deathhit.components.detail.MaterialFragment;
-import tw.com.deathhit.components.detail.MonsterFragment;
-import tw.com.deathhit.components.detail.SkillFragment;
-import tw.com.deathhit.components.detail.CalculatorFragment;
+import tw.com.deathhit.view_model.detail.PositionFragment;
+import tw.com.deathhit.view_model.detail.SeriesFragment;
+import tw.com.deathhit.view_model.detail.GuardStoneFragment;
+import tw.com.deathhit.view_model.detail.GuardStoneUpgradeFragment;
+import tw.com.deathhit.view_model.detail.JewelFragment;
+import tw.com.deathhit.view_model.detail.MaterialFragment;
+import tw.com.deathhit.view_model.detail.MonsterFragment;
+import tw.com.deathhit.view_model.detail.SkillFragment;
+import tw.com.deathhit.view_model.detail.CalculatorFragment;
 
 public final class DetailActivity extends BaseActivity {
     private boolean isInitialized = false;
 
     @Override
-    protected void onCreateView(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_detail);
+
+        if(savedInstanceState != null)
+            isInitialized = true;
 
         setFragmentContainer(R.id.frameLayout);
 
@@ -31,10 +36,7 @@ public final class DetailActivity extends BaseActivity {
         MobileAds.initialize(DetailActivity.this, getResources().getString(R.string.banner_ad_unit_id));
         AdView adView = findViewById(R.id.adView);
         adView.loadAd(new AdRequest.Builder().build());
-    }
 
-    @Override
-    protected void onBindViewOnce() {
         Bundle args = getIntent().getExtras();
 
         assert args != null;
@@ -57,10 +59,10 @@ public final class DetailActivity extends BaseActivity {
                 className = MaterialFragment.class.getName();
                 break;
             case Constants.REQUEST_EQUIPMENT_SERIES_DETAIL :
-                className = EquipmentSeriesFragment.class.getName();
+                className = SeriesFragment.class.getName();
                 break;
             case Constants.REQUEST_EQUIPMENT_POSITION_DETAIL :
-                className = EquipmentPositionFragment.class.getName();
+                className = PositionFragment.class.getName();
                 break;
             case Constants.REQUEST_GUARD_STONE_DETAIL :
                 className = GuardStoneFragment.class.getName();

@@ -1,4 +1,4 @@
-package tw.com.deathhit.components.detail;
+package tw.com.deathhit.view_model.detail;
 
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
@@ -6,6 +6,7 @@ import android.app.Dialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -30,7 +31,7 @@ import tw.com.deathhit.Constants;
 import tw.com.deathhit.R;
 import tw.com.deathhit.adapters.SpinnerAdapter;
 import tw.com.deathhit.adapters.recycler_view.DataAdapter;
-import tw.com.deathhit.comparators.JewelComparator;
+import tw.com.deathhit.utils.comparators.JewelComparator;
 import tw.com.deathhit.utils.NoScrollingLinearLayoutManager;
 
 public final class CalculatorFragment extends BaseFragment implements View.OnClickListener, AdapterView.OnItemSelectedListener, Dialog.OnClickListener{
@@ -79,12 +80,12 @@ public final class CalculatorFragment extends BaseFragment implements View.OnCli
     private static WeakReference<View> dialogView;
     private static int tabId;
 
-    //States to be preserved
+    //State holders
     @SuppressLint("UseSparseArrays")
     private HashMap<Integer, String> posPathMap = new HashMap<>(NUMBER_OF_POSITIONS);
     @SuppressLint("UseSparseArrays")
-    private HashMap<Integer, String[]> jewelPathMap = new HashMap<>((NUMBER_OF_POSITIONS+1)*NUMBER_OF_HOLES_FROM_EQUIPMENT);    //including weapon slots
-    private String guardStonePath;
+    private HashMap<Integer, String[]> jewelPathMap = new HashMap<>(NUMBER_OF_POSITIONS + 2);
+    private String guardStonePath = null;
     private int guardStoneLevel = 1;
 
     //Variable holders for cross scope calculation
@@ -92,22 +93,13 @@ public final class CalculatorFragment extends BaseFragment implements View.OnCli
     private int tempLevel;
 
     @Override
-    public View onCreateViewOnce(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        super.onCreateView(inflater, container, savedInstanceState);
+
         Bundle args = getArguments();
 
         if (args == null)
             return null;
-
-        String path = getArguments().getString(Constants.ARGUMENT_PATH, null);
-
-        if(savedInstanceState == null)
-            getDataFromSeries(path);
-        else{
-            posPathMap = (HashMap<Integer, String>)args.getSerializable(BUNDLE_KEY_POSITION_MAP);
-            jewelPathMap = (HashMap<Integer, String[]>)args.getSerializable(BUNDLE_KEY_JEWEL_MAP);
-            guardStonePath = args.getString(BUNDLE_KEY_GUARD_STONE);
-            guardStoneLevel = args.getInt(BUNDLE_KEY_GUARD_STONE_LEVEL);
-        }
 
         //Configure recycler view
         View view = inflater.inflate(R.layout.fragment_detail_calculator, container, false);
@@ -129,24 +121,57 @@ public final class CalculatorFragment extends BaseFragment implements View.OnCli
         view.findViewById(ID_GUARD_STONE).setOnClickListener(this);
         view.findViewById(ID_WEAPON).setOnClickListener(this);
 
-        //Calculate details
-        calculate(view, path);
-
         return view;
     }
 
     @Override
-    public void onDestroyView() {
-        saveStateToArgs();
+    public void onBindView(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        Bundle args = getArguments();
 
-        super.onDestroyView();
-    }
+        assert args != null;
+        String path = args.getString(Constants.ARGUMENT_PATH, null);
 
-    @Override
-    public void onSaveInstanceState(@NonNull Bundle outState) {
-        saveStateToArgs();
+        //Get initial data if there is no previous state
+        if(savedInstanceState == null){
+            ArrayList<String> temp = dataHandler.getChildrenPaths(path + "/Pos");
 
-        super.onSaveInstanceState(outState);
+            for(String p : temp){
+                int i = -1;
+
+                String position = dataHandler.getValue(p + "/Position");
+
+                assert position != null;
+                switch (position){
+                    case "Head" :
+                        i = INDEX_HEAD;
+                        break;
+                    case "Body" :
+                        i = INDEX_BODY;
+                        break;
+                    case "Hand" :
+                        i = INDEX_ARMS;
+                        break;
+                    case "Pants" :
+                        i = INDEX_WAIST;
+                        break;
+                    case "Shoes" :
+                        i = INDEX_LEGS;
+                        break;
+                }
+
+                posPathMap.put(i, p);
+            }
+
+            saveStateToArgs();
+        }else{
+            posPathMap = (HashMap<Integer, String>)args.getSerializable(BUNDLE_KEY_POSITION_MAP);
+            jewelPathMap = (HashMap<Integer, String[]>)args.getSerializable(BUNDLE_KEY_JEWEL_MAP);
+            guardStonePath = args.getString(BUNDLE_KEY_GUARD_STONE);
+            guardStoneLevel = args.getInt(BUNDLE_KEY_GUARD_STONE_LEVEL);
+        }
+
+        //Calculate details
+        calculate(view);
     }
 
     /**View.OnClickListener for tabs.**/
@@ -317,7 +342,7 @@ public final class CalculatorFragment extends BaseFragment implements View.OnCli
                 }
                 break;
             default :   //Equipments and weapon
-                int[] holes = getLevelsOfHoles(path);
+                int[] holes = getHoleLevels(path);
 
                 configureJewelSpinnersForDialog(holes); //Set up jewel spinners for selection
 
@@ -388,15 +413,19 @@ public final class CalculatorFragment extends BaseFragment implements View.OnCli
                 break;
         }
 
-        Bundle args = getArguments();
+        saveStateToArgs();
 
-        assert args != null;
-        calculate(getView(), args.getString(Constants.ARGUMENT_PATH));
+        calculate(getView());
 
         tabId = 0;
     }
 
-    private void calculate(View view, String path){
+    private void calculate(View view){
+        Bundle args = getArguments();
+
+        assert args != null;
+        String path = args.getString(Constants.ARGUMENT_PATH);
+
         //get information
         int[] attributes = new int[NUMBER_OF_ATTRIBUTES];
         int[] holes = new int[NUMBER_OF_HOLE_LEVELS];
@@ -434,7 +463,7 @@ public final class CalculatorFragment extends BaseFragment implements View.OnCli
             totalDef += Integer.valueOf(dataHandler.getValue(p + "/Defence"));
 
             //get slots
-            int[] temp = getLevelsOfHoles(p);
+            int[] temp = getHoleLevels(p);
 
             for(int j=0;j<NUMBER_OF_HOLE_LEVELS;j++) {
                 if(temp[j]>0)
@@ -451,6 +480,7 @@ public final class CalculatorFragment extends BaseFragment implements View.OnCli
 
         TextView textView = block.findViewById(R.id.textView);
 
+        assert path != null;
         StringBuilder text = new StringBuilder(getResources().getString(R.string.calculator)).append(" : ").append(dataHandler.getKey(path));
 
         textView.setText(text);
@@ -595,7 +625,7 @@ public final class CalculatorFragment extends BaseFragment implements View.OnCli
 
             int skillLevel = (int) dataHandler.getChildrenCount(skillPath + "/Level");
 
-            //Check if exceeds max level
+            //Check if current level is less than max level
             if(skillMap.get(s) < skillLevel)
                 skillLevel = skillMap.get(s);
 
@@ -746,38 +776,7 @@ public final class CalculatorFragment extends BaseFragment implements View.OnCli
         return result;
     }
 
-    private void getDataFromSeries(String path){
-        ArrayList<String> temp = dataHandler.getChildrenPaths(path + "/Pos");
-
-        for(String p : temp){
-            int i = -1;
-
-            String position = dataHandler.getValue(p + "/Position");
-
-            assert position != null;
-            switch (position){
-                case "Head" :
-                    i = INDEX_HEAD;
-                    break;
-                case "Body" :
-                    i = INDEX_BODY;
-                    break;
-                case "Hand" :
-                    i = INDEX_ARMS;
-                    break;
-                case "Pants" :
-                    i = INDEX_WAIST;
-                    break;
-                case "Shoes" :
-                    i = INDEX_LEGS;
-                    break;
-            }
-
-            posPathMap.put(i, p);
-        }
-    }
-
-    private int[] getLevelsOfHoles(String equipmentPath){
+    private int[] getHoleLevels(String equipmentPath){
         if(equipmentPath == null)
             return null;
 
@@ -825,9 +824,6 @@ public final class CalculatorFragment extends BaseFragment implements View.OnCli
     }
 
     private void saveStateToArgs(){
-        if(getView() == null)
-            return;
-
         Bundle args = getArguments();
 
         assert args != null;

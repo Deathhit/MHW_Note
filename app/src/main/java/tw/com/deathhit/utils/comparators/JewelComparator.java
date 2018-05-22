@@ -1,4 +1,4 @@
-package tw.com.deathhit.comparators;
+package tw.com.deathhit.utils.comparators;
 
 import tw.com.deathhit.DataHandler;
 

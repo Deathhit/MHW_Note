@@ -1,7 +1,8 @@
-package tw.com.deathhit.components.list;
+package tw.com.deathhit.view_model.list;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -38,14 +39,19 @@ abstract class BaseFragment extends tw.com.deathhit.core.BaseFragment implements
     private int tabIndex = 0;
 
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
-        dataHandler = new DataHandler(inflater.getContext(), Constants.STORAGE_DATABASE);
+    public void onCreate(Bundle savedInstanceState){
+        super.onCreate(savedInstanceState);
 
-        return super.onCreateView(inflater, container, savedInstanceState);
+        if(savedInstanceState != null){
+            query = savedInstanceState.getString(BUNDLE_KEY_QUERY, "");
+            tabIndex = savedInstanceState.getInt(BUNDLE_KEY_TAB_INDEX, 0);
+        }
     }
 
     @Override
-    public View onCreateViewOnce(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
+        dataHandler = new DataHandler(inflater.getContext(), Constants.STORAGE_DATABASE);
+
         View view = inflater.inflate(LAYOUT_LIST_FRAGMENT, container, false);
 
         //Set up search view
@@ -69,7 +75,6 @@ abstract class BaseFragment extends tw.com.deathhit.core.BaseFragment implements
         recyclerView.setHasFixedSize(true);
 
         //Set up adapters and tab bar
-
         TabBar tabBar = view.findViewById(ID_TAB_BAR);
 
         float textSizeInSp = getResources().getDimension(R.dimen.text_size_large) / getResources().getDisplayMetrics().density;
@@ -88,26 +93,11 @@ abstract class BaseFragment extends tw.com.deathhit.core.BaseFragment implements
 
         tabBar.setOnItemClickListener(this);
 
-        //Set up arguments to store state
-        if(getArguments() == null)
-            setArguments(new Bundle());
-
         return view;
     }
 
     @Override
-    public void onActivityCreated(Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
-
-        Bundle args = getArguments();
-
-        assert args != null;
-        query = args.getString(BUNDLE_KEY_QUERY, "");
-        tabIndex = args.getInt(BUNDLE_KEY_TAB_INDEX, 0);
-
-        View view = getView();
-
-        assert view != null;
+    public void onBindView(@NonNull View view, @Nullable Bundle savedInstanceState) {
         RecyclerView recyclerView = view.findViewById(ID_RECYCLER_VIEW);
 
         recyclerView.setAdapter(getAdapter(getDataForTab(tabIndex)));
@@ -126,14 +116,13 @@ abstract class BaseFragment extends tw.com.deathhit.core.BaseFragment implements
 
         recyclerView.setAdapter(null);
 
-        saveStateToArgs();
-
         super.onDestroyView();
     }
 
     @Override
     public void onSaveInstanceState(@NonNull Bundle outState) {
-        saveStateToArgs();
+        outState.putString(BUNDLE_KEY_QUERY, query);
+        outState.putInt(BUNDLE_KEY_TAB_INDEX, tabIndex);
 
         super.onSaveInstanceState(outState);
     }
@@ -212,17 +201,6 @@ abstract class BaseFragment extends tw.com.deathhit.core.BaseFragment implements
         query = "";
 
         tabIndex = index;
-    }
-
-    private void saveStateToArgs(){
-        if(getView() == null)
-            return;
-
-        Bundle args = getArguments();
-
-        assert args != null;
-        args.putString(BUNDLE_KEY_QUERY, query);
-        args.putInt(BUNDLE_KEY_TAB_INDEX, tabIndex);
     }
 
     /**Override this method to define adapter type.**/

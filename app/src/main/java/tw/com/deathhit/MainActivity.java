@@ -16,11 +16,11 @@ import com.google.android.gms.ads.AdView;
 import com.google.android.gms.ads.MobileAds;
 
 import tw.com.deathhit.core.BaseFragment;
-import tw.com.deathhit.components.list.CalculatorFragment;
-import tw.com.deathhit.components.list.EquipmentFragment;
-import tw.com.deathhit.components.list.MaterialFragment;
-import tw.com.deathhit.components.list.MonsterFragment;
-import tw.com.deathhit.components.list.SkillFragment;
+import tw.com.deathhit.view_model.list.CalculatorFragment;
+import tw.com.deathhit.view_model.list.EquipmentFragment;
+import tw.com.deathhit.view_model.list.MaterialFragment;
+import tw.com.deathhit.view_model.list.MonsterFragment;
+import tw.com.deathhit.view_model.list.SkillFragment;
 
 public final class MainActivity extends BaseActivity implements TabLayout.OnTabSelectedListener{
     private static final int NUMBER_OF_TABS = 5;
@@ -31,10 +31,10 @@ public final class MainActivity extends BaseActivity implements TabLayout.OnTabS
     private static final int INDEX_SKILL = 3;
     private static final int INDEX_CALCULATOR = 4;
 
-    private ViewPager viewPager;
-
     @Override
-    protected void onCreateView(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
         //Hide keyboard until an editor is chosen
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
 
@@ -45,7 +45,7 @@ public final class MainActivity extends BaseActivity implements TabLayout.OnTabS
         tabLayout.addOnTabSelectedListener(this);
 
         //Set up view pager
-        viewPager = findViewById(R.id.viewPager);
+        ViewPager viewPager = findViewById(R.id.viewPager);
         viewPager.setOffscreenPageLimit(NUMBER_OF_TABS);
         viewPager.setAdapter(new Adapter(getSupportFragmentManager()));
         viewPager.setVisibility(View.VISIBLE); //Fix for FixedAspectFrameLayout
@@ -58,12 +58,9 @@ public final class MainActivity extends BaseActivity implements TabLayout.OnTabS
     }
 
     @Override
-    protected void onBindViewOnce() {
-
-    }
-
-    @Override
     protected BaseFragment getCurrentFragment(){
+        ViewPager viewPager = findViewById(R.id.viewPager);
+
         return  (BaseFragment) getSupportFragmentManager().findFragmentByTag("android:switcher:" + R.id.viewPager + ":" + viewPager.getCurrentItem());
     }
 
@@ -84,6 +81,8 @@ public final class MainActivity extends BaseActivity implements TabLayout.OnTabS
 
     @Override
     public void onTabSelected(TabLayout.Tab tab) {
+        ViewPager viewPager = findViewById(R.id.viewPager);
+
         viewPager.setCurrentItem(tab.getPosition(), true);
     }
 

@@ -1,4 +1,4 @@
-package tw.com.deathhit.components.list;
+package tw.com.deathhit.view_model.list;
 
 import android.support.v7.widget.SearchView;
 import android.widget.TextView;
@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 
 import tw.com.deathhit.R;
-import tw.com.deathhit.comparators.JewelComparator;
+import tw.com.deathhit.utils.comparators.JewelComparator;
 
 public final class EquipmentFragment extends BaseFragment {
     private static final int NUMBER_OF_TABS = 4;

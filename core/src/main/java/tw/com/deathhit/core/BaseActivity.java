@@ -51,18 +51,6 @@ public abstract class BaseActivity extends AppCompatActivity {
             if(isNewProcess)
                 restartApplication();
         }
-
-        //Create and bind view
-        onCreateView(savedInstanceState);
-
-        if(savedInstanceState == null){
-            new Handler(getMainLooper()).post(new Runnable() {
-                @Override
-                public void run() {
-                    onBindViewOnce();
-                }
-            });
-        }
     }
 
     @Override
@@ -118,11 +106,19 @@ public abstract class BaseActivity extends AppCompatActivity {
     }
 
     /**Get the current fragment shown on the container.**/
+    @Nullable
     protected BaseFragment getCurrentFragment(){
         return (BaseFragment)getSupportFragmentManager().findFragmentById(containerId);
     }
 
-    /**Replace the content of the container set by setFragmentContainer(). Use fragment.getClass().getName() as fragment tag.**/
+    /**This generic method is used to provide unique functionality of the activity.
+     * You can avoid coupling activity and fragment by overriding this method.**/
+    protected Object request(int requestType, @Nullable Object... args){
+        return null;
+    }
+
+    /**Replace the content of the container set by setFragmentContainer(). Throws exception if containerId is not set.
+     * Use fragment.getClass().getName() as fragment tag.**/
     protected void setFragment(@NonNull BaseFragment fragment, boolean addToBackStack){
         setFragment(fragment, getContainerId(), addToBackStack);
     }
@@ -162,16 +158,6 @@ public abstract class BaseActivity extends AppCompatActivity {
         toast.show();
     }
 
-    /**Called in onCreate() to create view.**/
-    protected abstract void onCreateView(Bundle savedInstanceState);
-
-    /**Bind view when savedInstanceState is null. This method is called after onResume().**/
-    protected abstract void onBindViewOnce();
-
-    /**This generic method is used to provide unique functionality of the activity.
-     * You can avoid coupling activity and fragment by implementing this method.**/
-    protected abstract Object request(int requestType, @Nullable Object... args);
-
     /**The global activity presenter, declare the activity methods that you want to share with fragments and views here.**/
     public static final class Presenter{
         private static WeakReference<BaseActivity> activity;
@@ -188,13 +174,14 @@ public abstract class BaseActivity extends AppCompatActivity {
             return activity.get().findViewById(id);
         }
 
+        public static void onBackPressed(){
+            activity.get().onBackPressed();
+        }
+
         public static Intent getIntent(){
             return activity.get().getIntent();
         }
 
-        public static void onBackPressed(){
-            activity.get().onBackPressed();
-        }
 
         public static void setFragment(@NonNull BaseFragment fragment, boolean addToBackStack){
             activity.get().setFragment(fragment, addToBackStack);
