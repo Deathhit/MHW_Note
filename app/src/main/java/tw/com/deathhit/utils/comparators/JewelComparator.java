@@ -13,7 +13,7 @@ public final class JewelComparator extends BaseComparator{
         int h2 = Integer.valueOf(dataHandler.getValue(t1 + "/Hole"));
 
         if(h1 != h2)
-            return h2-h1;
+            return h1-h2;
         else
             return s.compareTo(t1);
     }

@@ -71,7 +71,7 @@ public final class MainActivity extends BaseActivity implements TabLayout.OnTabS
         intent.putExtra(Constants.ARGUMENT_PATH, path);
         intent.putExtra(Constants.ARGUMENT_REQUEST, requestType);
 
-        tw.com.deathhit.core.BaseActivity.Presenter.startActivity(intent);
+        startActivity(intent);
 
         return null;
     }

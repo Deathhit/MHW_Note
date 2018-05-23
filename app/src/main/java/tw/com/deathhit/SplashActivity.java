@@ -20,7 +20,7 @@ public final class SplashActivity extends BaseActivity implements DataHandler.On
 
         setContentView(R.layout.activity_splash);
 
-        //Request data
+        //Request data from remote data base
         dataHandler = new DataHandler(this, Constants.STORAGE_DATABASE);
 
         if(NetworkManager.getConnectivityStatus(this) == NetworkManager.TYPE_NOT_CONNECTED)
@@ -36,7 +36,7 @@ public final class SplashActivity extends BaseActivity implements DataHandler.On
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        return false;
+        return false;   //No menu for a splash activity
     }
 
     @Override
