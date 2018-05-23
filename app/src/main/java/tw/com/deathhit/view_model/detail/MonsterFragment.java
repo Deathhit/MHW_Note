@@ -131,8 +131,6 @@ public final class MonsterFragment extends BaseFragment {
 
         recyclerView.setLayoutManager(new NoScrollingLinearLayoutManager(getContext()));
 
-        recyclerView.addItemDecoration(new DividerItemDecoration(inflater.getContext(), DividerItemDecoration.VERTICAL));
-
         recyclerView.setHasFixedSize(true);
 
         return view;

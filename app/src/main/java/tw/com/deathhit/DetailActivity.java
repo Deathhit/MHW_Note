@@ -3,9 +3,7 @@ package tw.com.deathhit;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 
-import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
-import com.google.android.gms.ads.MobileAds;
 
 import tw.com.deathhit.core.BaseFragment;
 import tw.com.deathhit.view_model.detail.PositionFragment;
@@ -32,11 +30,7 @@ public final class DetailActivity extends BaseActivity {
 
         setFragmentContainer(R.id.frameLayout);
 
-        //Set up advertisement
-        MobileAds.initialize(DetailActivity.this, getResources().getString(R.string.banner_ad_unit_id));
-        AdView adView = findViewById(R.id.adView);
-        adView.loadAd(new AdRequest.Builder().build());
-
+        //Show fragment
         Bundle args = getIntent().getExtras();
 
         assert args != null;
@@ -45,6 +39,10 @@ public final class DetailActivity extends BaseActivity {
         int request = args.getInt(Constants.ARGUMENT_REQUEST);
 
         request(request, path);
+
+        //Set up advertisement
+        AdView adView = findViewById(R.id.adView);
+        loadAdViews(adView);
     }
 
     @Override

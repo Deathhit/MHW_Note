@@ -2,16 +2,26 @@ package tw.com.deathhit;
 
 import android.app.AlertDialog;
 import android.content.Intent;
+import android.os.Handler;
+import android.os.Looper;
 import android.text.method.LinkMovementMethod;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.widget.TextView;
 
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
+
 abstract class BaseActivity extends tw.com.deathhit.core.BaseActivity {
     private static final int ID_ABOUT_APPLICATION = R.id.item;
     private static final int ID_REPORT_MISSING_DATA = R.id.item2;
     private static final int ID_CLOSE_AD = R.id.item3;
+
+    /**Load ads to ad views.**/
+    public static void loadAdViews(AdView... adViews){
+        new Handler(Looper.getMainLooper()).post(new LoadAdViews(adViews));
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -40,7 +50,7 @@ abstract class BaseActivity extends tw.com.deathhit.core.BaseActivity {
 
                 String[] mailAddresses = new String[1];
 
-                mailAddresses[0] = getString(R.string.mail_address_of_service);
+                mailAddresses[0] = getString(R.string.service_mail_address);
 
                 intent.putExtra(Intent.EXTRA_EMAIL, mailAddresses);
                 intent.putExtra(Intent.EXTRA_SUBJECT, getString(R.string.app_name) + " : " + getString(R.string.report_missing_data));
@@ -54,5 +64,19 @@ abstract class BaseActivity extends tw.com.deathhit.core.BaseActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    private static class LoadAdViews implements Runnable{
+        private AdView[] adViews;
+
+        LoadAdViews(AdView... adViews){
+            this.adViews = adViews;
+        }
+
+        @Override
+        public void run() {
+            for(AdView adView : adViews)
+                adView.loadAd(new AdRequest.Builder().build());
+        }
     }
 }

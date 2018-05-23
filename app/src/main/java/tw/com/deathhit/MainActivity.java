@@ -11,9 +11,7 @@ import android.support.v4.view.ViewPager;
 import android.view.View;
 import android.view.WindowManager;
 
-import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
-import com.google.android.gms.ads.MobileAds;
 
 import tw.com.deathhit.core.BaseFragment;
 import tw.com.deathhit.view_model.list.CalculatorFragment;
@@ -52,9 +50,8 @@ public final class MainActivity extends BaseActivity implements TabLayout.OnTabS
         viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
 
         //Set up advertisement
-        MobileAds.initialize(MainActivity.this, getResources().getString(R.string.banner_ad_unit_id));
         AdView adView = findViewById(R.id.adView);
-        adView.loadAd(new AdRequest.Builder().build());
+        loadAdViews(adView);
     }
 
     @Override

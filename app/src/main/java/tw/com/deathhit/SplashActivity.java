@@ -2,21 +2,25 @@ package tw.com.deathhit;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
 import android.widget.Toast;
+
+import com.google.android.gms.ads.MobileAds;
 
 import tw.com.deathhit.utility.function.NetworkManager;
 
-public final class SplashActivity extends tw.com.deathhit.core.BaseActivity implements DataHandler.OnDataRequestedListener{
+public final class SplashActivity extends BaseActivity implements DataHandler.OnDataRequestedListener{
     private DataHandler dataHandler;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        setContentView(R.layout.activity_splash);
-
         setRestartApplicationOnNewProcess(false);
 
+        setContentView(R.layout.activity_splash);
+
+        //Request data
         dataHandler = new DataHandler(this, Constants.STORAGE_DATABASE);
 
         if(NetworkManager.getConnectivityStatus(this) == NetworkManager.TYPE_NOT_CONNECTED)
@@ -25,8 +29,15 @@ public final class SplashActivity extends tw.com.deathhit.core.BaseActivity impl
         dataHandler.addOnDataRequestedListener(this);
 
         dataHandler.requestData();
+
+        //Initialize advertisement
+        MobileAds.initialize(this, getString(R.string.banner_ad_unit_id));
     }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        return false;
+    }
 
     @Override
     public void onBackPressed() {

@@ -1,7 +1,8 @@
 <resources xmlns:https="http://schemas.android.com/tools">
     <string name="app_name">魔物獵人世界筆記</string>
     <string name="banner_ad_unit_id">ca-app-pub-3940256099942544/6300978111</string>
-    <string name="mail_address_of_service">service@ycstudio.com.tw</string>
+    <string name="interstitial_ad_unit_id">ca-app-pub-3940256099942544/1033173712</string>
+    <string name="service_mail_address">service@ycstudio.com.tw</string>
 
     <string name="about_application">關於這個App</string>
     <string name="about_application_content">該應用程式為iOS魔物獵人筆記App的Android版本，資料來自於iOS版的資料庫。\n\n作者 : Deathhit\n iOS版作者 : BensonLin\n\n

@@ -3,8 +3,6 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="0dp"
-    android:layout_marginEnd="5dp"
-    android:layout_marginStart="5dp"
     app:layoutHeightRatio="2"
     app:layoutWidthRatio="3">
 
