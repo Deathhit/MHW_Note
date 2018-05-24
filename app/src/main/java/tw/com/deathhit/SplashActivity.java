@@ -2,6 +2,8 @@ package tw.com.deathhit;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
 import android.view.Menu;
 import android.widget.Toast;
 
@@ -20,18 +22,23 @@ public final class SplashActivity extends BaseActivity implements DataHandler.On
 
         setContentView(R.layout.activity_splash);
 
-        //Request data from remote data base
-        dataHandler = new DataHandler(this, Constants.STORAGE_DATABASE);
+        dataHandler = new DataHandler(SplashActivity.this, Constants.STORAGE_DATABASE);
 
         if(NetworkManager.getConnectivityStatus(this) == NetworkManager.TYPE_NOT_CONNECTED)
             toast(getString(R.string.no_internet), Toast.LENGTH_LONG);
 
         dataHandler.addOnDataRequestedListener(this);
 
-        dataHandler.requestData();
+        //Request data from remote data base
+        new Handler(Looper.getMainLooper()).post(new Runnable() {
+            @Override
+            public void run() {
+                dataHandler.requestData();
 
-        //Initialize advertisement
-        MobileAds.initialize(this, getString(R.string.banner_ad_unit_id));
+                //Initialize advertisement
+                MobileAds.initialize(SplashActivity.this, getString(R.string.banner_ad_unit_id));
+            }
+        });
     }
 
     @Override
@@ -44,6 +51,7 @@ public final class SplashActivity extends BaseActivity implements DataHandler.On
         //Disable onBackPressed()
     }
 
+    /**Start activity after data is acquired.**/
     @Override
     public void onDataRequested(boolean isNewData) {
         dataHandler.removeOnDataRequestedListener(this);
