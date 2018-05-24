@@ -29,9 +29,9 @@ import java.util.regex.Pattern;
 
 import tw.com.deathhit.Constants;
 import tw.com.deathhit.R;
-import tw.com.deathhit.adapters.SpinnerAdapter;
-import tw.com.deathhit.adapters.recycler_view.DataAdapter;
-import tw.com.deathhit.utils.comparators.JewelComparator;
+import tw.com.deathhit.adapter.SpinnerAdapter;
+import tw.com.deathhit.adapter.recycler_view.DataAdapter;
+import tw.com.deathhit.utils.comparator.JewelComparator;
 import tw.com.deathhit.utils.NoScrollingLinearLayoutManager;
 
 public final class CalculatorFragment extends BaseFragment implements View.OnClickListener, AdapterView.OnItemSelectedListener, Dialog.OnClickListener{

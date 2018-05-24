@@ -1,4 +1,4 @@
-package tw.com.deathhit.adapters.recycler_view;
+package tw.com.deathhit.adapter.recycler_view;
 
 import android.annotation.SuppressLint;
 import android.net.Uri;

@@ -17,9 +17,9 @@ import java.util.ArrayList;
 import java.util.Collections;
 
 import tw.com.deathhit.Constants;
-import tw.com.deathhit.adapters.recycler_view.DataAdapter;
+import tw.com.deathhit.adapter.recycler_view.DataAdapter;
 import tw.com.deathhit.R;
-import tw.com.deathhit.utils.comparators.PositionComparator;
+import tw.com.deathhit.utils.comparator.PositionComparator;
 import tw.com.deathhit.utils.NoScrollingLinearLayoutManager;
 
 public final class SeriesFragment extends BaseFragment {

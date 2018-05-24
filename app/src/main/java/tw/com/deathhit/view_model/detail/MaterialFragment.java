@@ -17,7 +17,7 @@ import com.bumptech.glide.request.RequestOptions;
 import java.util.ArrayList;
 
 import tw.com.deathhit.Constants;
-import tw.com.deathhit.adapters.recycler_view.TextAdapter;
+import tw.com.deathhit.adapter.recycler_view.TextAdapter;
 import tw.com.deathhit.R;
 import tw.com.deathhit.utils.NoScrollingLinearLayoutManager;
 

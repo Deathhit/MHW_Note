@@ -8,7 +8,6 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
-import android.view.View;
 import android.view.WindowManager;
 
 import com.google.android.gms.ads.AdView;
@@ -30,7 +29,7 @@ public final class MainActivity extends BaseActivity implements TabLayout.OnTabS
     private static final int INDEX_CALCULATOR = 4;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         //Hide keyboard until an editor is chosen
@@ -45,9 +44,8 @@ public final class MainActivity extends BaseActivity implements TabLayout.OnTabS
         //Set up view pager
         ViewPager viewPager = findViewById(R.id.viewPager);
         viewPager.setOffscreenPageLimit(NUMBER_OF_TABS);
-        viewPager.setAdapter(new Adapter(getSupportFragmentManager()));
-        viewPager.setVisibility(View.VISIBLE); //Fix for FixedAspectFrameLayout
         viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
+        viewPager.setAdapter(new Adapter(getSupportFragmentManager()));
 
         //Set up advertisement
         AdView adView = findViewById(R.id.adView);
@@ -58,7 +56,7 @@ public final class MainActivity extends BaseActivity implements TabLayout.OnTabS
     protected BaseFragment getCurrentFragment(){
         ViewPager viewPager = findViewById(R.id.viewPager);
 
-        return  (BaseFragment) getSupportFragmentManager().findFragmentByTag("android:switcher:" + R.id.viewPager + ":" + viewPager.getCurrentItem());
+        return  (BaseFragment)getSupportFragmentManager().findFragmentByTag("android:switcher:" + R.id.viewPager + ":" + viewPager.getCurrentItem());
     }
 
     @Override

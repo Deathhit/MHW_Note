@@ -1,4 +1,4 @@
-package tw.com.deathhit.adapters.recycler_view;
+package tw.com.deathhit.adapter.recycler_view;
 
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;

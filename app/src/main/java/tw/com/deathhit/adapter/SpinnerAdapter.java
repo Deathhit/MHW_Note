@@ -1,4 +1,4 @@
-package tw.com.deathhit.adapters;
+package tw.com.deathhit.adapter;
 
 import android.annotation.SuppressLint;
 import android.view.LayoutInflater;

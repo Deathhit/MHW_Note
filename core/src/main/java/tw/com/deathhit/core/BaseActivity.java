@@ -3,11 +3,7 @@ package tw.com.deathhit.core;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Handler;
-import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Toast;
@@ -23,14 +19,13 @@ public abstract class BaseActivity extends AppCompatActivity {
 
     private static boolean isNewProcess = true;
 
-    private int containerId;    //This is the id used to represent container of fragment.
-
     @SuppressLint("ShowToast")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        bindToPresenter();
+        //Bind current activity to presenter
+        Presenter.activity = new WeakReference<>(this);
 
         if(toast == null)
             toast = Toast.makeText(getApplicationContext(), "", Toast.LENGTH_SHORT);
@@ -57,36 +52,20 @@ public abstract class BaseActivity extends AppCompatActivity {
     protected void onStart(){
         super.onStart();
 
-        bindToPresenter();
+        //Bind current activity to presenter
+        Presenter.activity = new WeakReference<>(this);
     }
 
     @Override
     protected void onResume(){
         super.onResume();
 
-        bindToPresenter();
-    }
-
-    @Override
-    public void onBackPressed() {
-        if(getCurrentFragment() == null || !getCurrentFragment().onBackPressed())
-            super.onBackPressed();
-    }
-
-    /**Bind activity to presenter. Do not do anything else in this method.**/
-    private void bindToPresenter(){
+        //Bind current activity to presenter
         Presenter.activity = new WeakReference<>(this);
     }
 
-    /**Clear fragment transaction history.**/
-    protected final void clearTransactionHistory(){
-        FragmentManager manager = getSupportFragmentManager();
-
-        manager.popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
-    }
-
     /**Restart application by launching launcher activity with flags Intent.FLAG_ACTIVITY_CLEAR_TOP|Intent.FLAG_ACTIVITY_NEW_TASK.**/
-    protected final void restartApplication(){
+    protected void restartApplication(){
         Intent intent = getBaseContext().getPackageManager()
                 .getLaunchIntentForPackage(getBaseContext().getPackageName());
 
@@ -100,44 +79,10 @@ public abstract class BaseActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-    /**Get the container id assigned by setFragmentContainer().**/
-    protected int getContainerId(){
-        return containerId;
-    }
-
-    /**Get the current fragment shown on the container.**/
-    @Nullable
-    protected BaseFragment getCurrentFragment(){
-        return (BaseFragment)getSupportFragmentManager().findFragmentById(containerId);
-    }
-
     /**This generic method is used to provide unique functionality of the activity.
      * You can avoid coupling activity and fragment by overriding this method.**/
     protected Object request(int requestType, @Nullable Object... args){
         return null;
-    }
-
-    /**Replace the content of the container set by setFragmentContainer(). Throws exception if containerId is not set.
-     * Use fragment.getClass().getName() as fragment tag.**/
-    protected void setFragment(@NonNull BaseFragment fragment, boolean addToBackStack){
-        setFragment(fragment, getContainerId(), addToBackStack);
-    }
-
-    /**Replace the content of target container with another fragment. You can add side effects by overriding this method.
-     * Use fragment.getClass().getName() as fragment tag.**/
-    protected void setFragment(@NonNull BaseFragment fragment, int containerId, boolean addToBackStack){
-        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-
-        transaction.replace(containerId, fragment, fragment.getClass().getName());
-        if(addToBackStack)
-            transaction.addToBackStack(null);
-
-        transaction.commit();
-    }
-
-    /**Provide a container for setFragment() method.**/
-    protected void setFragmentContainer(int id){
-        this.containerId = id;
     }
 
     /**If restartOnNewProcess is true, application will restart from the launcher activity when it needs to get back from a dead process.
@@ -159,12 +104,8 @@ public abstract class BaseActivity extends AppCompatActivity {
     }
 
     /**The global activity presenter, declare the activity methods that you want to share with fragments and views here.**/
-    public static final class Presenter{
-        private static WeakReference<BaseActivity> activity;
-
-        public static void clearTransactionHistory(){
-            activity.get().clearTransactionHistory();
-        }
+    public static class Presenter{
+        static WeakReference<BaseActivity> activity;
 
         public static void finish(){
             activity.get().finish();
@@ -180,15 +121,6 @@ public abstract class BaseActivity extends AppCompatActivity {
 
         public static Intent getIntent(){
             return activity.get().getIntent();
-        }
-
-
-        public static void setFragment(@NonNull BaseFragment fragment, boolean addToBackStack){
-            activity.get().setFragment(fragment, addToBackStack);
-        }
-
-        public static void setFragment(@NonNull BaseFragment fragment, int containerId, boolean addToBackStack){
-            activity.get().setFragment(fragment, containerId, addToBackStack);
         }
 
         public static void setResult(int resultCode, Intent intent){
@@ -219,8 +151,6 @@ public abstract class BaseActivity extends AppCompatActivity {
             activity.get().toast(message, duration);
         }
 
-        private Presenter(){
 
-        }
     }
 }

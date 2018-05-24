@@ -1,4 +1,4 @@
-package tw.com.deathhit.adapters.recycler_view;
+package tw.com.deathhit.adapter.recycler_view;
 
 import android.content.Intent;
 import android.net.Uri;

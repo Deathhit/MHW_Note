@@ -13,7 +13,7 @@ import android.widget.TextView;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
 
-abstract class BaseActivity extends tw.com.deathhit.core.BaseActivity {
+abstract class BaseActivity extends tw.com.deathhit.core.FragmentActivity {
     private static final int ID_ABOUT_APPLICATION = R.id.item;
     private static final int ID_REPORT_MISSING_DATA = R.id.item2;
     private static final int ID_CLOSE_AD = R.id.item3;

@@ -1,4 +1,4 @@
-package tw.com.deathhit.core;
+package tw.com.deathhit.utility.fragment;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -12,6 +12,8 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.TextView;
 
 import java.lang.ref.WeakReference;
+
+import tw.com.deathhit.core.BaseFragment;
 
 /**BaseFragment class that is specialized to deal with text input. Invoke registerEditorView() to
  * register your editors.**/

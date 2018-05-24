@@ -18,7 +18,7 @@ import java.util.ArrayList;
 import tw.com.deathhit.Constants;
 import tw.com.deathhit.R;
 import tw.com.deathhit.DataHandler;
-import tw.com.deathhit.adapters.recycler_view.DataAdapter;
+import tw.com.deathhit.adapter.recycler_view.DataAdapter;
 import tw.com.deathhit.utility.adapter.RecyclerObjectAdapter;
 import tw.com.deathhit.utility.widget.TabBar;
 

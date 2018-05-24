@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 
 import tw.com.deathhit.R;
-import tw.com.deathhit.utils.comparators.JewelComparator;
+import tw.com.deathhit.utils.comparator.JewelComparator;
 
 public final class EquipmentFragment extends BaseFragment {
     private static final int NUMBER_OF_TABS = 4;

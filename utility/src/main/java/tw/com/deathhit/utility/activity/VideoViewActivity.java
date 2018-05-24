@@ -1,4 +1,4 @@
-package tw.com.deathhit.core;
+package tw.com.deathhit.utility.activity;
 
 import android.media.MediaPlayer;
 import android.os.Bundle;
@@ -6,6 +6,8 @@ import android.support.annotation.Nullable;
 import android.view.View;
 import android.widget.MediaController;
 import android.widget.VideoView;
+
+import tw.com.deathhit.core.BaseActivity;
 
 /**Simple video view activity supports one video view with intent.getData() as the uri of the video.**/
 public abstract class VideoViewActivity extends BaseActivity implements MediaPlayer.OnPreparedListener, MediaPlayer.OnCompletionListener{

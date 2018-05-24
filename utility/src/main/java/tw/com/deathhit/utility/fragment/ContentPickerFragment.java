@@ -1,4 +1,4 @@
-package tw.com.deathhit.core;
+package tw.com.deathhit.utility.fragment;
 
 import android.content.ClipData;
 import android.content.Context;
@@ -14,6 +14,9 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+
+import tw.com.deathhit.core.ApplicationInfo;
+import tw.com.deathhit.core.BaseFragment;
 
 import static android.app.Activity.RESULT_OK;
 
@@ -44,6 +47,52 @@ public abstract class ContentPickerFragment extends BaseFragment {
     private static Object[] args;   //Temporary reference for args
 
     private static Uri uri; //Temporary reference for file uri
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        ArrayList<Uri> uriList = null;
+
+        switch(resultCode) {
+            case(RESULT_OK):
+                switch (requestCode){
+                    case(AUDIO_REQUEST_CODE):
+                    case(FILE_REQUEST_CODE):
+                    case(IMAGE_REQUEST_CODE):
+                    case(VIDEO_REQUEST_CODE):
+                        if(data.getClipData() != null) {
+                            ClipData clipData = data.getClipData();
+
+                            uriList = new ArrayList<>(clipData.getItemCount());
+
+                            for (int i = 0; i < clipData.getItemCount(); i++)
+                                uriList.add(clipData.getItemAt(i).getUri());
+                        }else{
+                            uriList = new ArrayList<>(1);
+
+                            uriList.add(data.getData());
+                        }
+                        break;
+                    case(RECORD_SOUND_REQUEST_CODE):
+                    case(RECORD_VIDEO_REQUEST_CODE):
+                    case(TAKE_PHOTO_REQUEST_CODE):
+                        addMediaToGallery(getContext());
+
+                        uriList = new ArrayList<>(1);
+
+                        uriList.add(uri);
+                        break;
+                }
+
+                onContentPicked(requestCode, uriList, args);
+                break;
+        }
+
+        args = null;
+
+        uri = null;
+    }
 
     /**Create empty media file as storage.**/
     private static Uri createFile(Context context, int requestCode){
@@ -95,52 +144,6 @@ public abstract class ContentPickerFragment extends BaseFragment {
         mediaScanIntent.setData(uri);
 
         context.sendBroadcast(mediaScanIntent);
-    }
-
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-
-        ArrayList<Uri> uriList = null;
-
-        switch(resultCode) {
-            case(RESULT_OK):
-                switch (requestCode){
-                    case(AUDIO_REQUEST_CODE):
-                    case(FILE_REQUEST_CODE):
-                    case(IMAGE_REQUEST_CODE):
-                    case(VIDEO_REQUEST_CODE):
-                        if(data.getClipData() != null) {
-                            ClipData clipData = data.getClipData();
-
-                            uriList = new ArrayList<>(clipData.getItemCount());
-
-                            for (int i = 0; i < clipData.getItemCount(); i++)
-                                uriList.add(clipData.getItemAt(i).getUri());
-                        }else{
-                            uriList = new ArrayList<>(1);
-
-                            uriList.add(data.getData());
-                        }
-                        break;
-                    case(RECORD_SOUND_REQUEST_CODE):
-                    case(RECORD_VIDEO_REQUEST_CODE):
-                    case(TAKE_PHOTO_REQUEST_CODE):
-                        addMediaToGallery(getContext());
-
-                        uriList = new ArrayList<>(1);
-
-                        uriList.add(uri);
-                        break;
-                }
-
-                onContentPicked(requestCode, uriList, args);
-                break;
-        }
-
-        args = null;
-
-        uri = null;
     }
 
     /**Start gallery activity to pick up desired contents. Triggers onContentPicked() after selection. This will launch picker activity according to the given request code.

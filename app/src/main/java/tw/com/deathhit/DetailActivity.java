@@ -1,6 +1,8 @@
 package tw.com.deathhit;
 
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
 import android.support.annotation.Nullable;
 
 import com.google.android.gms.ads.AdView;
@@ -30,15 +32,22 @@ public final class DetailActivity extends BaseActivity {
 
         setFragmentContainer(R.id.frameLayout);
 
-        //Show fragment
-        Bundle args = getIntent().getExtras();
+        //Initialize fragment if there is no previous state
+        if(savedInstanceState == null) {
+            new Handler(Looper.getMainLooper()).post(new Runnable() {
+                @Override
+                public void run() {
+                    Bundle args = getIntent().getExtras();
 
-        assert args != null;
-        String path = args.getString(Constants.ARGUMENT_PATH);
+                    assert args != null;
+                    String path = args.getString(Constants.ARGUMENT_PATH);
 
-        int request = args.getInt(Constants.ARGUMENT_REQUEST);
+                    int request = args.getInt(Constants.ARGUMENT_REQUEST);
 
-        request(request, path);
+                    request(request, path);
+                }
+            });
+        }
 
         //Set up advertisement
         AdView adView = findViewById(R.id.adView);
