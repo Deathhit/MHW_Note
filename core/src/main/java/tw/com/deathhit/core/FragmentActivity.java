@@ -15,7 +15,7 @@ public abstract class FragmentActivity extends BaseActivity{
     }
 
     /**Clear fragment transaction history.**/
-    protected final void clearTransactionHistory(){
+    protected void clearTransactionHistory(){
         FragmentManager manager = getSupportFragmentManager();
 
         manager.popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);

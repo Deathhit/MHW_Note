@@ -29,10 +29,11 @@ public final class SplashActivity extends BaseActivity implements DataHandler.On
 
         dataHandler.addOnDataRequestedListener(this);
 
-        //Request data from remote data base
+        //Request data after view is created to make activity responsive
         new Handler(Looper.getMainLooper()).post(new Runnable() {
             @Override
             public void run() {
+                //Request data from remote data base
                 dataHandler.requestData();
 
                 //Initialize advertisement
