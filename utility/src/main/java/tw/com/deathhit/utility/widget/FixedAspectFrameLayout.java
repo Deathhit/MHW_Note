@@ -38,7 +38,7 @@ public class FixedAspectFrameLayout extends FrameLayout {
 
             if (lockedWidth == 0 && lockedHeight == 0)
                 throw new IllegalArgumentException(
-                        "Both width and height cannot be zero -- watch out for scrollable containers " + getId());
+                        "Both width and height cannot be zero -- watch out for scrollable containers");
 
             int hPadding=getPaddingLeft() + getPaddingRight();
             int vPadding=getPaddingTop() + getPaddingBottom();

@@ -1,20 +1,13 @@
 package tw.com.deathhit.utility.widget;
 
-/**
- * Adapted from anorth at https://gist.github.com/anorth/9845602.
- * by cami7ord on Sept 20 - 2017.
- */
-
 import android.content.Context;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.MotionEvent;
 import android.view.ScaleGestureDetector;
 import android.view.View;
 import android.widget.FrameLayout;
 
 public class ZoomFrameLayout extends FrameLayout implements ScaleGestureDetector.OnScaleGestureListener {
-    private static final String TAG = "ZoomLayout";
     private static final float MIN_ZOOM = 1.0f;
     private static final float MAX_ZOOM = 4.0f;
 
@@ -102,7 +95,6 @@ public class ZoomFrameLayout extends FrameLayout implements ScaleGestureDetector
                         mode = Mode.NONE;
                         break;
                     case MotionEvent.ACTION_UP:
-                        Log.i(TAG, "UP");
                         mode = Mode.NONE;
                         prevDx = dx;
                         prevDy = dy;
@@ -116,8 +108,7 @@ public class ZoomFrameLayout extends FrameLayout implements ScaleGestureDetector
                     float maxDy = (child().getHeight() - (child().getHeight() / scale))/ 2 * scale;
                     dx = Math.min(Math.max(dx, -maxDx), maxDx);
                     dy = Math.min(Math.max(dy, -maxDy), maxDy);
-                    Log.i(TAG, "Width: " + child().getWidth() + ", scale " + scale + ", dx " + dx
-                            + ", max " + maxDx);
+
                     applyScaleAndTranslation();
                 }
 
@@ -130,14 +121,13 @@ public class ZoomFrameLayout extends FrameLayout implements ScaleGestureDetector
 
     @Override
     public boolean onScaleBegin(ScaleGestureDetector scaleDetector) {
-        Log.i(TAG, "onScaleBegin");
         return true;
     }
 
     @Override
     public boolean onScale(ScaleGestureDetector scaleDetector) {
         float scaleFactor = scaleDetector.getScaleFactor();
-        Log.i(TAG, "onScale" + scaleFactor);
+
         if (lastScaleFactor == 0 || (Math.signum(scaleFactor) == Math.signum(lastScaleFactor))) {
             scale *= scaleFactor;
             scale = Math.max(MIN_ZOOM, Math.min(scale, MAX_ZOOM));
@@ -150,7 +140,7 @@ public class ZoomFrameLayout extends FrameLayout implements ScaleGestureDetector
 
     @Override
     public void onScaleEnd(ScaleGestureDetector scaleDetector) {
-        Log.i(TAG, "onScaleEnd");
+
     }
 
     private void applyScaleAndTranslation() {
