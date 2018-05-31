@@ -13,6 +13,8 @@ import tw.com.deathhit.R;
 import tw.com.deathhit.DataHandler;
 import tw.com.deathhit.utility.adapter.RecyclerObjectAdapter;
 
+import static tw.com.deathhit.Constants.OPERATOR_PATH;
+
 abstract class BaseAdapter extends RecyclerObjectAdapter<String>{
     static final int TYPE_DATA = 0;
     static final int TYPE_CATEGORY = 1;
@@ -29,7 +31,7 @@ abstract class BaseAdapter extends RecyclerObjectAdapter<String>{
 
     @Override
     public int getItemViewType(int position) {
-        if(getPath(position).contains(Constants.OPERATOR_PATH))
+        if(getPath(position).contains(OPERATOR_PATH))
             return TYPE_DATA;
         else
             return TYPE_CATEGORY;

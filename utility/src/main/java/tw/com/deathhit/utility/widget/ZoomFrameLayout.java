@@ -1,3 +1,10 @@
+/*
+ * Adapted from anorth at https://gist.github.com/anorth/9845602.
+ * by cami7ord on Sept 20 - 2017.
+ *
+ * Adapted from cami7ord at https://gist.github.com/cami7ord/0ce6f36a28d36bf17d96284f2cf75ae9.
+ * by Deathhit on May 31 - 2018.
+ */
 package tw.com.deathhit.utility.widget;
 
 import android.content.Context;
