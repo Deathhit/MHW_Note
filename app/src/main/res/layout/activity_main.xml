@@ -7,7 +7,7 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <tw.com.deathhit.utility.widget.FixedAspectFrameLayout
+        <tw.com.deathhit.mhw_note.utility.widget.FixedAspectFrameLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
             app:layoutHeightRatio="@integer/tab_bar_height_ratio"
@@ -44,7 +44,7 @@
                     android:layout_height="wrap_content"
                     android:text="@string/calculator" />
             </android.support.design.widget.TabLayout>
-        </tw.com.deathhit.utility.widget.FixedAspectFrameLayout>
+        </tw.com.deathhit.mhw_note.utility.widget.FixedAspectFrameLayout>
 
     <android.support.v4.view.ViewPager
         android:id="@+id/viewPager"

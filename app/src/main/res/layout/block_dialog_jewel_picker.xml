@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <tw.com.deathhit.utility.widget.FixedAspectFrameLayout
+    <tw.com.deathhit.mhw_note.utility.widget.FixedAspectFrameLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
         app:layoutHeightRatio="@integer/tab_bar_height_ratio"
@@ -20,9 +20,9 @@
             android:text="@string/jewel"
             android:textSize="@dimen/text_size_large" />
 
-    </tw.com.deathhit.utility.widget.FixedAspectFrameLayout>
+    </tw.com.deathhit.mhw_note.utility.widget.FixedAspectFrameLayout>
 
-    <tw.com.deathhit.utility.widget.FixedAspectFrameLayout
+    <tw.com.deathhit.mhw_note.utility.widget.FixedAspectFrameLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
         app:layoutHeightRatio="@integer/tab_bar_height_ratio"
@@ -34,9 +34,9 @@
             android:layout_height="match_parent"
             android:layout_marginEnd="20dp"
             android:layout_marginStart="20dp" />
-    </tw.com.deathhit.utility.widget.FixedAspectFrameLayout>
+    </tw.com.deathhit.mhw_note.utility.widget.FixedAspectFrameLayout>
 
-    <tw.com.deathhit.utility.widget.FixedAspectFrameLayout
+    <tw.com.deathhit.mhw_note.utility.widget.FixedAspectFrameLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
         app:layoutHeightRatio="@integer/tab_bar_height_ratio"
@@ -48,9 +48,9 @@
             android:layout_height="match_parent"
             android:layout_marginEnd="20dp"
             android:layout_marginStart="20dp" />
-    </tw.com.deathhit.utility.widget.FixedAspectFrameLayout>
+    </tw.com.deathhit.mhw_note.utility.widget.FixedAspectFrameLayout>
 
-    <tw.com.deathhit.utility.widget.FixedAspectFrameLayout
+    <tw.com.deathhit.mhw_note.utility.widget.FixedAspectFrameLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
         app:layoutHeightRatio="@integer/tab_bar_height_ratio"
@@ -62,6 +62,6 @@
             android:layout_height="match_parent"
             android:layout_marginEnd="20dp"
             android:layout_marginStart="20dp" />
-    </tw.com.deathhit.utility.widget.FixedAspectFrameLayout>
+    </tw.com.deathhit.mhw_note.utility.widget.FixedAspectFrameLayout>
 
 </LinearLayout>

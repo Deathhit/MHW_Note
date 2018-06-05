@@ -40,13 +40,13 @@
         android:layout_gravity="bottom"
         android:orientation="vertical">
 
-        <tw.com.deathhit.utility.widget.FixedAspectFrameLayout
+        <tw.com.deathhit.mhw_note.utility.widget.FixedAspectFrameLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
             app:layoutHeightRatio="@integer/tab_bar_height_ratio"
             app:layoutWidthRatio="@integer/tab_bar_width_ratio">
 
-            <tw.com.deathhit.utility.widget.TabBar
+            <tw.com.deathhit.mhw_note.utility.widget.TabBar
                 android:id="@+id/tabBar"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent" >
@@ -78,16 +78,16 @@
                     android:text="@string/position_arms"
                     android:textSize="@dimen/text_size_large" />
 
-            </tw.com.deathhit.utility.widget.TabBar>
-        </tw.com.deathhit.utility.widget.FixedAspectFrameLayout>
+            </tw.com.deathhit.mhw_note.utility.widget.TabBar>
+        </tw.com.deathhit.mhw_note.utility.widget.FixedAspectFrameLayout>
 
-        <tw.com.deathhit.utility.widget.FixedAspectFrameLayout
+        <tw.com.deathhit.mhw_note.utility.widget.FixedAspectFrameLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
             app:layoutHeightRatio="@integer/tab_bar_height_ratio"
             app:layoutWidthRatio="@integer/tab_bar_width_ratio">
 
-            <tw.com.deathhit.utility.widget.TabBar
+            <tw.com.deathhit.mhw_note.utility.widget.TabBar
                 android:id="@+id/tabBar2"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent" >
@@ -128,9 +128,9 @@
                     android:text="@string/weapon"
                     android:textSize="@dimen/text_size_large" />
 
-            </tw.com.deathhit.utility.widget.TabBar>
+            </tw.com.deathhit.mhw_note.utility.widget.TabBar>
 
-        </tw.com.deathhit.utility.widget.FixedAspectFrameLayout>
+        </tw.com.deathhit.mhw_note.utility.widget.FixedAspectFrameLayout>
     </LinearLayout>
 
 </LinearLayout>

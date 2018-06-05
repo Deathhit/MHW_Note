@@ -10,7 +10,7 @@
     android:paddingStart="10dp"
     android:paddingTop="10dp">
 
-    <tw.com.deathhit.utility.widget.FixedAspectFrameLayout
+    <tw.com.deathhit.mhw_note.utility.widget.FixedAspectFrameLayout
         android:layout_width="1dp"
         android:layout_height="match_parent"
         android:layout_weight="1"
@@ -22,7 +22,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             app:srcCompat="@drawable/ic_image_not_available" />
-    </tw.com.deathhit.utility.widget.FixedAspectFrameLayout>
+    </tw.com.deathhit.mhw_note.utility.widget.FixedAspectFrameLayout>
 
     <LinearLayout
         android:layout_width="0dp"

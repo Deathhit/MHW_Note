@@ -3,7 +3,7 @@ apply plugin: 'com.android.application'
 android {
     compileSdkVersion 27
     defaultConfig {
-        applicationId "tw.com.deathhit"
+        applicationId "tw.com.deathhit.mhw_note"
         minSdkVersion 19
         targetSdkVersion 27
         versionCode 1

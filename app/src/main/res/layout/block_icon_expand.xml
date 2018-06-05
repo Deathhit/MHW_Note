@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<tw.com.deathhit.utility.widget.FixedAspectFrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<tw.com.deathhit.mhw_note.utility.widget.FixedAspectFrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -16,4 +16,4 @@
         android:scaleX="0.5"
         android:scaleY="0.5"
         app:srcCompat="@drawable/ic_disclosure" />
-</tw.com.deathhit.utility.widget.FixedAspectFrameLayout>
+</tw.com.deathhit.mhw_note.utility.widget.FixedAspectFrameLayout>

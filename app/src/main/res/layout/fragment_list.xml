@@ -25,18 +25,18 @@
         android:layout_height="0dp"
         android:layout_weight="1" />
 
-    <tw.com.deathhit.utility.widget.FixedAspectFrameLayout
+    <tw.com.deathhit.mhw_note.utility.widget.FixedAspectFrameLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
         app:layoutHeightRatio="@integer/tab_bar_height_ratio"
         app:layoutWidthRatio="@integer/tab_bar_width_ratio">
 
-        <tw.com.deathhit.utility.widget.TabBar
+        <tw.com.deathhit.mhw_note.utility.widget.TabBar
             android:id="@+id/tabBar"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-        </tw.com.deathhit.utility.widget.TabBar>
-    </tw.com.deathhit.utility.widget.FixedAspectFrameLayout>
+        </tw.com.deathhit.mhw_note.utility.widget.TabBar>
+    </tw.com.deathhit.mhw_note.utility.widget.FixedAspectFrameLayout>
 
 </LinearLayout>

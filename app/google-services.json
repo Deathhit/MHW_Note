@@ -8,12 +8,16 @@
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:593600478360:android:ef63bf8c8617dcb0",
+        "mobilesdk_app_id": "1:593600478360:android:c9800c71ebf1190a",
         "android_client_info": {
-          "package_name": "tw.com.deathhit"
+          "package_name": "tw.com.deathhit.mhw_note"
         }
       },
       "oauth_client": [
+        {
+          "client_id": "593600478360-iaiji3jltuj32ls2aitie5mtpki0lo8d.apps.googleusercontent.com",
+          "client_type": 3
+        },
         {
           "client_id": "593600478360-iaiji3jltuj32ls2aitie5mtpki0lo8d.apps.googleusercontent.com",
           "client_type": 3

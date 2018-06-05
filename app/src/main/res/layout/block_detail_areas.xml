@@ -14,7 +14,7 @@
         android:text="@string/infested_area"
         android:textSize="@dimen/text_size_large" />
 
-    <tw.com.deathhit.utility.widget.FixedAspectFrameLayout
+    <tw.com.deathhit.mhw_note.utility.widget.FixedAspectFrameLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_marginTop="10dp"
@@ -68,5 +68,5 @@
                 android:alpha="0.3"
                 app:srcCompat="@drawable/ic_map_dragon" />
         </LinearLayout>
-    </tw.com.deathhit.utility.widget.FixedAspectFrameLayout>
+    </tw.com.deathhit.mhw_note.utility.widget.FixedAspectFrameLayout>
 </LinearLayout>
