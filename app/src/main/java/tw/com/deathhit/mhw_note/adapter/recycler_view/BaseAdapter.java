@@ -8,21 +8,18 @@ import android.view.ViewGroup;
 
 import java.util.List;
 
-import tw.com.deathhit.mhw_note.Constants;
-
 import tw.com.deathhit.mhw_note.DataHandler;
 import tw.com.deathhit.mhw_note.R;
 import tw.com.deathhit.mhw_note.utility.adapter.RecyclerObjectAdapter;
 
+import static tw.com.deathhit.mhw_note.Constants.OPERATOR_EXTRA_TEXT;
 import static tw.com.deathhit.mhw_note.Constants.OPERATOR_PATH;
 
 abstract class BaseAdapter extends RecyclerObjectAdapter<String>{
     static final int TYPE_DATA = 0;
     static final int TYPE_CATEGORY = 1;
-
-    private static final String OPERATOR_EXTRA_TEXT = Constants.OPERATOR_EXTRA_TEXT;
     
-    protected DataHandler dataHandler;
+    DataHandler dataHandler;
 
     BaseAdapter(DataHandler dataHandler, List<String> items){
         this.dataHandler = dataHandler;

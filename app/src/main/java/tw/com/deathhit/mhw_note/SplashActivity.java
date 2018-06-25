@@ -12,8 +12,6 @@ import com.google.android.gms.ads.MobileAds;
 import tw.com.deathhit.mhw_note.utility.function.NetworkManager;
 
 public final class SplashActivity extends BaseActivity implements DataHandler.OnDataRequestedListener{
-    private DataHandler dataHandler;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -22,19 +20,17 @@ public final class SplashActivity extends BaseActivity implements DataHandler.On
 
         setContentView(R.layout.activity_splash);
 
-        dataHandler = new DataHandler(SplashActivity.this, Constants.STORAGE_DATABASE);
-
         if(NetworkManager.getConnectivityStatus(this) == NetworkManager.TYPE_NOT_CONNECTED)
             toast(getString(R.string.no_internet), Toast.LENGTH_LONG);
 
-        dataHandler.addOnDataRequestedListener(this);
+        DataHandler.addOnDataRequestedListener(this);
 
         //Request data after view is created to make activity responsive
         new Handler(Looper.getMainLooper()).post(new Runnable() {
             @Override
             public void run() {
                 //Request data from remote data base
-                dataHandler.requestData();
+                DataHandler.requestData(SplashActivity.this, Constants.STORAGE_DATABASE);
 
                 //Initialize advertisement
                 MobileAds.initialize(SplashActivity.this, getString(R.string.banner_ad_unit_id));
@@ -55,7 +51,7 @@ public final class SplashActivity extends BaseActivity implements DataHandler.On
     /**Start activity after data is acquired.**/
     @Override
     public void onDataRequested(boolean isNewData) {
-        dataHandler.removeOnDataRequestedListener(this);
+        DataHandler.removeOnDataRequestedListener(this);
 
         Intent intent = new Intent(SplashActivity.this, MainActivity.class);
 

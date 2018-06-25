@@ -18,6 +18,7 @@ import java.util.Set;
 
 import tw.com.deathhit.mhw_note.core.BaseActivity;
 
+
 public final class DataHandler{
     private static final String ATTRIBUTE_CHILDREN_KEYS = "ChildrenKeys";
 
@@ -26,13 +27,51 @@ public final class DataHandler{
 
     private static final String NODE_DATA_VERSION = Constants.NODE_DATA_VERSION;
 
+    private static ArrayList<OnDataRequestedListener> listeners = new ArrayList<>(1);
+
     private final SharedPreferences data;
 
-    private VersionEventListener versionEventListener = new VersionEventListener();
+    static void requestData(@NonNull Context context, @NonNull String storageName){
+        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference(NODE_DATA_VERSION);
 
-    private ArrayList<OnDataRequestedListener> listeners = new ArrayList<>(1);
+        databaseReference.addListenerForSingleValueEvent(new VersionEventListener(context, storageName));
+    }
 
-    public DataHandler(@NonNull Context context,@NonNull String storageName) {
+    static void addOnDataRequestedListener(OnDataRequestedListener listener){
+        listeners.add(listener);
+    }
+
+    static void removeOnDataRequestedListener(OnDataRequestedListener listener){
+        listeners.remove(listener);
+    }
+
+    private static void writeData(SharedPreferences.Editor editor, DataSnapshot snapshot, String path){
+        ArraySet<String> childrenKeys = new ArraySet<>();
+
+        for(DataSnapshot data : snapshot.getChildren()){
+            String subPath = path + OPERATOR_PATH + data.getKey();
+
+            childrenKeys.add(data.getKey());
+
+            writeData(editor, data, subPath);
+        }
+
+        long childrenCount = snapshot.getChildrenCount();
+
+        if(snapshot.getValue() != null && childrenCount == 0)   //Not null and not array
+            editor.putString(path, snapshot.getValue().toString());
+
+        editor.putStringSet(path + OPERATOR_ATTRIBUTE + ATTRIBUTE_CHILDREN_KEYS, childrenKeys);
+    }
+
+    private static void triggerListeners(boolean isNewData){
+        ArrayList<OnDataRequestedListener> temp = new ArrayList<>(listeners);
+
+        for(OnDataRequestedListener listener : temp)
+            listener.onDataRequested(isNewData);
+    }
+
+    public DataHandler(@NonNull Context context, @NonNull String storageName) {
         data = context.getSharedPreferences(storageName, Context.MODE_PRIVATE);
     }
 
@@ -106,56 +145,21 @@ public final class DataHandler{
         return data.getString(path, null);
     }
 
-    void requestData(){
-        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference(NODE_DATA_VERSION);
+    private static final class VersionEventListener implements ValueEventListener{
+        private final SharedPreferences storage;
 
-        databaseReference.addListenerForSingleValueEvent(versionEventListener);
-    }
-
-    void addOnDataRequestedListener(OnDataRequestedListener listener){
-        listeners.add(listener);
-    }
-
-    void removeOnDataRequestedListener(OnDataRequestedListener listener){
-        listeners.remove(listener);
-    }
-
-    private void writeData(SharedPreferences.Editor editor, DataSnapshot snapshot, String path){
-        ArraySet<String> childrenKeys = new ArraySet<>();
-
-        for(DataSnapshot data : snapshot.getChildren()){
-            String subPath = path + OPERATOR_PATH + data.getKey();
-
-            childrenKeys.add(data.getKey());
-
-            writeData(editor, data, subPath);
+        VersionEventListener(@NonNull Context context, @NonNull String storageName){
+            storage = context.getSharedPreferences(storageName, Context.MODE_PRIVATE);
         }
-
-        long childrenCount = snapshot.getChildrenCount();
-
-        if(snapshot.getValue() != null && childrenCount == 0)   //Not null and not array
-            editor.putString(path, snapshot.getValue().toString());
-
-        editor.putStringSet(path + OPERATOR_ATTRIBUTE + ATTRIBUTE_CHILDREN_KEYS, childrenKeys);
-    }
-
-    private void triggerListeners(boolean isNewData){
-        ArrayList<OnDataRequestedListener> temp = new ArrayList<>(listeners);
-
-        for(OnDataRequestedListener listener : temp)
-            listener.onDataRequested(isNewData);
-    }
-
-    private final class VersionEventListener implements ValueEventListener{
-        private DataEventListener dataEventListener = new DataEventListener();
 
         @Override
         public void onDataChange(DataSnapshot dataSnapshot) {
-            String currentDataVersion = getData().getString(OPERATOR_PATH + NODE_DATA_VERSION, "-1");
+            String currentDataVersion = storage.getString(OPERATOR_PATH + NODE_DATA_VERSION, "-1");
+
             String newDataVersion = (String)dataSnapshot.getValue();
 
             if(!currentDataVersion.equals(newDataVersion)){
-                FirebaseDatabase.getInstance().getReference().addListenerForSingleValueEvent(dataEventListener);
+                FirebaseDatabase.getInstance().getReference().addListenerForSingleValueEvent(new DataEventListener(storage));
             }else
                 triggerListeners(false);
         }
@@ -166,10 +170,16 @@ public final class DataHandler{
         }
     }
 
-    private final class DataEventListener implements ValueEventListener{
+    private static final class DataEventListener implements ValueEventListener{
+        private final SharedPreferences storage;
+
+        DataEventListener(@NonNull SharedPreferences storage){
+            this.storage = storage;
+        }
+
         @Override
         public void onDataChange(DataSnapshot dataSnapshot) {
-            SharedPreferences.Editor editor = getData().edit();
+            SharedPreferences.Editor editor = storage.edit();
 
             editor.clear();
 
@@ -190,3 +200,4 @@ public final class DataHandler{
         void onDataRequested(boolean isNewData);
     }
 }
+

@@ -8,8 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-/**Fragment class that provides the basic functionality. Extend it to create your fragment. Do not
- * keep any strong reference to view objects as property. This will kill the effect of view recycling.**/
+/**Fragment class that provides the basic functionality.**/
 public abstract class BaseFragment extends Fragment {
     /**Force to implement onCreateView() since it is the common case.**/
     @Override
@@ -25,7 +24,7 @@ public abstract class BaseFragment extends Fragment {
             onBindView(view, savedInstanceState);
     }
 
-    /**BaseActivity will invoke this method from its current BaseFragment. Return true if you want to consume the event.**/
+    /**FragmentActivity will invoke this method from its current BaseFragment. Return true if you want to consume the event.**/
     public boolean onBackPressed(){
         return false;
     }

@@ -25,29 +25,6 @@ public final class DataAdapter extends BaseAdapter implements View.OnClickListen
         super(dataHandler, items);
     }
 
-    @NonNull
-    @Override
-    public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = null;
-
-        switch (viewType){
-            case TYPE_DATA :
-                view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_data, parent, false);
-                break;
-            case TYPE_CATEGORY :
-                view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_category, parent, false);
-                break;
-        }
-
-        assert view != null;
-        return new RecyclerView.ViewHolder(view) {
-            @Override
-            public String toString() {
-                return super.toString();
-            }
-        };
-    }
-
     @SuppressLint("SetTextI18n")
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
