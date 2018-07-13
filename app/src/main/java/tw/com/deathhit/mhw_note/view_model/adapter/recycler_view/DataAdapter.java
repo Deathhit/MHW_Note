@@ -1,12 +1,10 @@
-package tw.com.deathhit.mhw_note.adapter.recycler_view;
+package tw.com.deathhit.mhw_note.view_model.adapter.recycler_view;
 
 import android.annotation.SuppressLint;
 import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -136,30 +134,30 @@ public final class DataAdapter extends BaseAdapter implements View.OnClickListen
                 assert dataType != null;
                 switch (dataType) {
                     case "GuardStone":
-                        BaseActivity.Presenter.request(Constants.REQUEST_GUARD_STONE_DETAIL, path);
+                        BaseActivity.get().request(Constants.REQUEST_GUARD_STONE_DETAIL, path);
                         break;
                     case "Lv":
-                        BaseActivity.Presenter.request(Constants.REQUEST_GUARD_STONE_UPGRADE_DETAIL, path);
+                        BaseActivity.get().request(Constants.REQUEST_GUARD_STONE_UPGRADE_DETAIL, path);
                         break;
                     case "Jewelry":
-                        BaseActivity.Presenter.request(Constants.REQUEST_JEWEL_DETAIL, path);
+                        BaseActivity.get().request(Constants.REQUEST_JEWEL_DETAIL, path);
                         break;
                     case "Pos":
-                        BaseActivity.Presenter.request(Constants.REQUEST_EQUIPMENT_POSITION_DETAIL, path);
+                        BaseActivity.get().request(Constants.REQUEST_EQUIPMENT_POSITION_DETAIL, path);
                         break;
                     default:
-                        BaseActivity.Presenter.request(Constants.REQUEST_EQUIPMENT_SERIES_DETAIL, path);
+                        BaseActivity.get().request(Constants.REQUEST_EQUIPMENT_SERIES_DETAIL, path);
                         break;
                 }
                 break;
             case "MonsterAssetsDetail" :
-                BaseActivity.Presenter.request(Constants.REQUEST_MATERIAL_DETAIL, path);
+                BaseActivity.get().request(Constants.REQUEST_MATERIAL_DETAIL, path);
                 break;
             case "MonsterDetail" :
-                BaseActivity.Presenter.request(Constants.REQUEST_MONSTER_DETAIL, path);
+                BaseActivity.get().request(Constants.REQUEST_MONSTER_DETAIL, path);
                 break;
             case "Skill" :
-                BaseActivity.Presenter.request(Constants.REQUEST_SKILL_DETAIL, path);
+                BaseActivity.get().request(Constants.REQUEST_SKILL_DETAIL, path);
                 break;
         }
     }

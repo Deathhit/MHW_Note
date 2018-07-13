@@ -1,4 +1,4 @@
-package tw.com.deathhit.mhw_note.adapter;
+package tw.com.deathhit.mhw_note.view_model.adapter;
 
 import android.annotation.SuppressLint;
 import android.view.LayoutInflater;

@@ -9,7 +9,7 @@ import android.widget.Toast;
 
 import com.google.android.gms.ads.MobileAds;
 
-import tw.com.deathhit.mhw_note.utility.function.NetworkManager;
+import tw.com.deathhit.mhw_note.utils.NetworkChecker;
 
 public final class SplashActivity extends BaseActivity implements DataHandler.OnDataRequestedListener{
     @Override
@@ -20,7 +20,7 @@ public final class SplashActivity extends BaseActivity implements DataHandler.On
 
         setContentView(R.layout.activity_splash);
 
-        if(NetworkManager.getConnectivityStatus(this) == NetworkManager.TYPE_NOT_CONNECTED)
+        if(!NetworkChecker.checkNetwork(this))
             toast(getString(R.string.no_internet), Toast.LENGTH_LONG);
 
         DataHandler.addOnDataRequestedListener(this);

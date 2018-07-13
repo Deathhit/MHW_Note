@@ -18,7 +18,7 @@ import java.util.Collections;
 
 import tw.com.deathhit.mhw_note.Constants;
 import tw.com.deathhit.mhw_note.R;
-import tw.com.deathhit.mhw_note.adapter.recycler_view.DataAdapter;
+import tw.com.deathhit.mhw_note.view_model.adapter.recycler_view.DataAdapter;
 import tw.com.deathhit.mhw_note.utils.comparator.PositionComparator;
 import tw.com.deathhit.mhw_note.utils.NoScrollingLinearLayoutManager;
 

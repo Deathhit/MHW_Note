@@ -1,4 +1,4 @@
-package tw.com.deathhit.mhw_note.adapter.recycler_view;
+package tw.com.deathhit.mhw_note.view_model.adapter.recycler_view;
 
 import android.content.Intent;
 import android.net.Uri;
@@ -63,6 +63,6 @@ public final class ImageAdapter extends RecyclerObjectAdapter<String> implements
 
         intent.setData(Uri.parse((String)view.getTag()));
 
-        BaseActivity.Presenter.startActivity(intent);
+        BaseActivity.get().startActivity(intent);
     }
 }

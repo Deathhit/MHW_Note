@@ -53,14 +53,14 @@ public final class MainActivity extends BaseActivity implements TabLayout.OnTabS
     }
 
     @Override
-    protected BaseFragment getCurrentFragment(){
+    public BaseFragment getCurrentFragment(){
         ViewPager viewPager = findViewById(R.id.viewPager);
 
         return  (BaseFragment)getSupportFragmentManager().findFragmentByTag("android:switcher:" + R.id.viewPager + ":" + viewPager.getCurrentItem());
     }
 
     @Override
-    protected Object request(int requestType, @Nullable Object... args) {
+    public Object request(int requestType, @Nullable Object... args) {
         Intent intent = new Intent(this, DetailActivity.class);
 
         assert args != null;

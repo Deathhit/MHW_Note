@@ -55,7 +55,7 @@ public final class DetailActivity extends BaseActivity {
     }
 
     @Override
-    protected Object request(int requestType, @Nullable Object... args) {
+    public Object request(int requestType, @Nullable Object... args) {
         String className = null;
 
         switch (requestType){
@@ -105,9 +105,9 @@ public final class DetailActivity extends BaseActivity {
         fragment.setArguments(fragmentArgs);
 
         if(isInitialized)
-            setFragment(fragment, true);
+            setFragment(fragment, true).commit();
         else{
-            setFragment(fragment, false);
+            setFragment(fragment, false).commit();
 
             isInitialized = true;
         }

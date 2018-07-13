@@ -1,4 +1,4 @@
-package tw.com.deathhit.mhw_note.utility.activity;
+package tw.com.deathhit.mhw_note.utility.component;
 
 import android.media.MediaPlayer;
 import android.os.Bundle;
@@ -11,8 +11,8 @@ import tw.com.deathhit.mhw_note.core.BaseActivity;
 
 /**Simple video view activity supports one video view with intent.getData() as the uri of the video.**/
 public abstract class VideoViewActivity extends BaseActivity implements MediaPlayer.OnPreparedListener, MediaPlayer.OnCompletionListener{
-    private static final String CURRENT_POSITION = "currentPosition";
-    private static final String IS_PLAYING = "play";
+    private static final String CURRENT_POSITION = VideoViewActivity.class.getName() + ":currentPosition";
+    private static final String IS_PLAYING = VideoViewActivity.class.getName() + ":play";
 
     private MediaController mediaController;
 
@@ -79,7 +79,7 @@ public abstract class VideoViewActivity extends BaseActivity implements MediaPla
 
     /**request() is not used here.**/
     @Override
-    protected Object request(int requestType, @Nullable Object... args) {
+    public Object request(int requestType, @Nullable Object... args) {
         return null;
     }
 

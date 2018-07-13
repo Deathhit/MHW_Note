@@ -61,7 +61,7 @@ public class ZoomFrameLayout extends FrameLayout implements ScaleGestureDetector
     private void init(Context context) {
 
         final ScaleGestureDetector scaleDetector = new ScaleGestureDetector(context, this);
-        this.setOnTouchListener(new View.OnTouchListener() {
+        this.setOnTouchListener(new OnTouchListener() {
             @Override
             public boolean onTouch(View view, MotionEvent motionEvent) {
 

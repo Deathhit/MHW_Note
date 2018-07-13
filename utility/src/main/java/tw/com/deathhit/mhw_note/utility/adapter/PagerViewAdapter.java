@@ -14,4 +14,9 @@ public class PagerViewAdapter extends PagerObjectAdapter<View> {
     public View onCreateView(List<View> items, int position) {
         return items.get(position);
     }
+
+    @Override
+    public void onBindView(List<View> items, View view, int position) {
+
+    }
 }

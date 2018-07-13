@@ -16,12 +16,41 @@
  * Modifications copyright (C) 2018 Deathhit
  */
 
-package tw.com.deathhit.mhw_note.utility.function;
+package tw.com.deathhit.mhw_note.utility;
 
 import android.graphics.Matrix;
 
-/**ScaleManager which provides scale matrix according to given width and height.*/
-public final class ScaleManager {
+/**ScaleFactory which provides scale matrix according to given width and height.*/
+public final class ScaleFactory {
+    public enum ScaleType {
+        NONE,
+        FIT_XY,
+        FIT_START,
+        FIT_CENTER,
+        FIT_END,
+        LEFT_TOP,
+        LEFT_CENTER,
+        LEFT_BOTTOM,
+        CENTER_TOP,
+        CENTER,
+        CENTER_BOTTOM,
+        RIGHT_TOP,
+        RIGHT_CENTER,
+        RIGHT_BOTTOM,
+        LEFT_TOP_CROP,
+        LEFT_CENTER_CROP,
+        LEFT_BOTTOM_CROP,
+        CENTER_TOP_CROP,
+        CENTER_CROP,
+        CENTER_BOTTOM_CROP,
+        RIGHT_TOP_CROP,
+        RIGHT_CENTER_CROP,
+        RIGHT_BOTTOM_CROP,
+        START_INSIDE,
+        CENTER_INSIDE,
+        END_INSIDE
+    }
+
     private static int viewWidth;
     private static int viewHeight;
 
@@ -29,10 +58,10 @@ public final class ScaleManager {
     private static int contentHeight;
 
     public static Matrix getScaleMatrix(int viewWidth, int viewHeight, int contentWidth, int contentHeight, ScaleType scaleType) {
-        ScaleManager.viewWidth = viewWidth;
-        ScaleManager.viewHeight = viewHeight;
-        ScaleManager.contentWidth = contentWidth;
-        ScaleManager.contentHeight = contentHeight;
+        ScaleFactory.viewWidth = viewWidth;
+        ScaleFactory.viewHeight = viewHeight;
+        ScaleFactory.contentWidth = contentWidth;
+        ScaleFactory.contentHeight = contentHeight;
 
         switch (scaleType) {
             case NONE:
@@ -46,7 +75,6 @@ public final class ScaleManager {
                 return fitStart();
             case FIT_END:
                 return fitEnd();
-
             case LEFT_TOP:
                 return getOriginalScale(ScaleType.LEFT_TOP);
             case LEFT_CENTER:
@@ -65,7 +93,6 @@ public final class ScaleManager {
                 return getOriginalScale(ScaleType.RIGHT_CENTER);
             case RIGHT_BOTTOM:
                 return getOriginalScale(ScaleType.RIGHT_BOTTOM);
-
             case LEFT_TOP_CROP:
                 return getCropScale(ScaleType.LEFT_TOP);
             case LEFT_CENTER_CROP:
@@ -84,7 +111,6 @@ public final class ScaleManager {
                 return getCropScale(ScaleType.RIGHT_CENTER);
             case RIGHT_BOTTOM_CROP:
                 return getCropScale(ScaleType.RIGHT_BOTTOM);
-
             case START_INSIDE:
                 return startInside();
             case CENTER_INSIDE:
@@ -185,59 +211,23 @@ public final class ScaleManager {
     }
 
     private static Matrix startInside() {
-        if (contentWidth <= viewWidth
-                && contentHeight <= viewHeight)
+        if (contentWidth <= viewWidth && contentHeight <= viewHeight)
             return getOriginalScale(ScaleType.LEFT_TOP);
         else
             return fitStart();
     }
 
     private static Matrix centerInside() {
-        if (contentHeight <= viewWidth
-                && contentHeight <= viewHeight)
+        if (contentHeight <= viewWidth && contentHeight <= viewHeight)
             return getOriginalScale(ScaleType.CENTER);
         else
             return fitCenter();
     }
 
     private static Matrix endInside() {
-        if (contentHeight <= viewWidth
-                && contentHeight <= viewHeight)
+        if (contentHeight <= viewWidth && contentHeight <= viewHeight)
             return getOriginalScale(ScaleType.RIGHT_BOTTOM);
         else
             return fitEnd();
-    }
-
-    public enum ScaleType {
-        NONE,
-
-        FIT_XY,
-        FIT_START,
-        FIT_CENTER,
-        FIT_END,
-
-        LEFT_TOP,
-        LEFT_CENTER,
-        LEFT_BOTTOM,
-        CENTER_TOP,
-        CENTER,
-        CENTER_BOTTOM,
-        RIGHT_TOP,
-        RIGHT_CENTER,
-        RIGHT_BOTTOM,
-
-        LEFT_TOP_CROP,
-        LEFT_CENTER_CROP,
-        LEFT_BOTTOM_CROP,
-        CENTER_TOP_CROP,
-        CENTER_CROP,
-        CENTER_BOTTOM_CROP,
-        RIGHT_TOP_CROP,
-        RIGHT_CENTER_CROP,
-        RIGHT_BOTTOM_CROP,
-
-        START_INSIDE,
-        CENTER_INSIDE,
-        END_INSIDE
     }
 }

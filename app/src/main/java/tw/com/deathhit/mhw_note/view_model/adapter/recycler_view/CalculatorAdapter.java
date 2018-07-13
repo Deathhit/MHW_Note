@@ -1,4 +1,4 @@
-package tw.com.deathhit.mhw_note.adapter.recycler_view;
+package tw.com.deathhit.mhw_note.view_model.adapter.recycler_view;
 
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
@@ -49,6 +49,6 @@ public final class CalculatorAdapter extends BaseAdapter implements View.OnClick
     public void onClick(View view) {
         int position = (int)view.getTag();
 
-        BaseActivity.Presenter.request(Constants.REQUEST_CALCULATOR_DETAIL, getPath(position));
+        BaseActivity.get().request(Constants.REQUEST_CALCULATOR_DETAIL, getPath(position));
     }
 }

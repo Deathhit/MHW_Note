@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 
 import tw.com.deathhit.mhw_note.R;
-import tw.com.deathhit.mhw_note.adapter.recycler_view.CalculatorAdapter;
+import tw.com.deathhit.mhw_note.view_model.adapter.recycler_view.CalculatorAdapter;
 import tw.com.deathhit.mhw_note.utility.adapter.RecyclerObjectAdapter;
 
 public final class CalculatorFragment extends BaseFragment {

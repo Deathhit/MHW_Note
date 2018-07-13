@@ -7,8 +7,8 @@ import android.content.pm.PackageManager;
 import android.os.Environment;
 
 /**Provides application info needed for the framework.**/
-public class ApplicationInfo extends android.content.pm.ApplicationInfo{
-    private static final String SHARED_PREFERENCES_NAME = ApplicationInfo.class.getName();
+public final class ApplicationHelper {
+    private static final String SHARED_PREFERENCES_NAME = ApplicationHelper.class.getName();
 
     //Preference keys
     private static final String KEY_PREVIOUS_VERSION = "previousVersion";
@@ -72,9 +72,13 @@ public class ApplicationInfo extends android.content.pm.ApplicationInfo{
             //Application is no longer on its first run
             editor.putInt(KEY_PREVIOUS_VERSION, currentVersion);
 
-            editor.commit();
+            editor.apply();
         }
 
         return isNewVersion;
+    }
+
+    private ApplicationHelper(){
+
     }
 }

@@ -29,8 +29,8 @@ import java.util.regex.Pattern;
 
 import tw.com.deathhit.mhw_note.Constants;
 import tw.com.deathhit.mhw_note.R;
-import tw.com.deathhit.mhw_note.adapter.SpinnerAdapter;
-import tw.com.deathhit.mhw_note.adapter.recycler_view.DataAdapter;
+import tw.com.deathhit.mhw_note.view_model.adapter.SpinnerAdapter;
+import tw.com.deathhit.mhw_note.view_model.adapter.recycler_view.DataAdapter;
 import tw.com.deathhit.mhw_note.utils.comparator.JewelComparator;
 import tw.com.deathhit.mhw_note.utils.NoScrollingLinearLayoutManager;
 

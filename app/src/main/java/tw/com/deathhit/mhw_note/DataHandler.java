@@ -166,7 +166,7 @@ public final class DataHandler{
 
         @Override
         public void onCancelled(DatabaseError databaseError) {
-            BaseActivity.Presenter.toast(databaseError.getMessage());
+            BaseActivity.get().toast(databaseError.getMessage());
         }
     }
 
@@ -178,7 +178,7 @@ public final class DataHandler{
         }
 
         @Override
-        public void onDataChange(DataSnapshot dataSnapshot) {
+        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
             SharedPreferences.Editor editor = storage.edit();
 
             editor.clear();
@@ -192,7 +192,7 @@ public final class DataHandler{
 
         @Override
         public void onCancelled(DatabaseError databaseError) {
-            BaseActivity.Presenter.toast(databaseError.getMessage());
+            BaseActivity.get().toast(databaseError.getMessage());
         }
     }
 

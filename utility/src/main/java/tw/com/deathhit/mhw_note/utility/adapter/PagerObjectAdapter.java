@@ -28,6 +28,8 @@ public abstract class PagerObjectAdapter<T> extends PagerAdapter {
 
         container.addView(view);
 
+        onBindView(items, view, position);
+
         return view;
     }
 
@@ -41,4 +43,5 @@ public abstract class PagerObjectAdapter<T> extends PagerAdapter {
     }
 
     public abstract View onCreateView(List<T> items, int position);
+    public abstract void onBindView(List<T> items, View view, int position);
 }
