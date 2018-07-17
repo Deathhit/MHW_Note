@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "593600478360",
+    "firebase_url": "https://mhwtest-33cce.firebaseio.com",
+    "project_id": "mhwtest-33cce",
+    "storage_bucket": "mhwtest-33cce.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:593600478360:android:c9800c71ebf1190a",
+        "android_client_info": {
+          "package_name": "tw.com.deathhit.mhw_note"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "593600478360-iaiji3jltuj32ls2aitie5mtpki0lo8d.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyApoLqOMA9jcWOFwOlwbKGtwgbRLgrdTUs"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
