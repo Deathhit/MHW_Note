@@ -13,6 +13,15 @@
             app:layoutHeightRatio="@integer/tab_bar_height_ratio"
             app:layoutWidthRatio="@integer/tab_bar_width_ratio">
 
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_gravity="bottom"
+                android:background="@color/grey">
+
+            </FrameLayout>
+
+
             <android.support.design.widget.TabLayout
                 android:id="@+id/tabLayout"
                 android:layout_width="match_parent"
@@ -44,6 +53,7 @@
                     android:layout_height="wrap_content"
                     android:text="@string/calculator" />
             </android.support.design.widget.TabLayout>
+
         </tw.com.deathhit.mhw_note.utility.widget.FixedAspectFrameLayout>
 
     <android.support.v4.view.ViewPager

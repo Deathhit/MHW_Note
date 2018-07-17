@@ -4,5 +4,5 @@
     <integer name="drop_down_text_width_ratio">10</integer>
 
     <integer name="tab_bar_height_ratio">1</integer>
-    <integer name="tab_bar_width_ratio">7</integer>
+    <integer name="tab_bar_width_ratio">8</integer>
 </resources>

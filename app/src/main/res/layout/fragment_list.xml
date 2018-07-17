@@ -37,6 +37,15 @@
             android:layout_height="match_parent">
 
         </tw.com.deathhit.mhw_note.utility.widget.TabBar>
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_gravity="top"
+            android:background="@color/grey">
+
+        </FrameLayout>
+
     </tw.com.deathhit.mhw_note.utility.widget.FixedAspectFrameLayout>
 
 </LinearLayout>
