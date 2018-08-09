@@ -16,8 +16,6 @@ public final class SplashActivity extends BaseActivity implements DataHandler.On
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        setRestartApplicationOnNewProcess(false);
-
         setContentView(R.layout.activity_splash);
 
         if(!NetworkChecker.checkNetwork(this))
@@ -46,6 +44,11 @@ public final class SplashActivity extends BaseActivity implements DataHandler.On
     @Override
     public void onBackPressed() {
         //Disable onBackPressed()
+    }
+
+    @Override
+    public int getContainerId() {
+        return R.id.frameLayout;
     }
 
     /**Start activity after data is acquired.**/

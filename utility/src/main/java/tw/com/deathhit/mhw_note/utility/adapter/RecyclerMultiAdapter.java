@@ -16,7 +16,7 @@ public abstract class RecyclerMultiAdapter<T> extends RecyclerObjectAdapter<Obje
     }
 
     @Override
-    public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
         int viewType = getItemViewType(position);
 
         if(viewType >= 0)

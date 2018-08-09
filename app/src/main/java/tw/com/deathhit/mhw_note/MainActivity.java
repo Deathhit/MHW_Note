@@ -19,7 +19,7 @@ import tw.com.deathhit.mhw_note.view_model.list.MaterialFragment;
 import tw.com.deathhit.mhw_note.view_model.list.MonsterFragment;
 import tw.com.deathhit.mhw_note.view_model.list.SkillFragment;
 
-public final class MainActivity extends BaseActivity implements TabLayout.OnTabSelectedListener{
+public final class MainActivity extends BasePagerActivity implements TabLayout.OnTabSelectedListener{
     private static final int NUMBER_OF_TABS = 5;
 
     private static final int INDEX_MONSTER = 0;
@@ -72,6 +72,11 @@ public final class MainActivity extends BaseActivity implements TabLayout.OnTabS
         startActivity(intent);
 
         return null;
+    }
+
+    @Override
+    public int getViewPagerId() {
+        return R.id.viewPager;
     }
 
     @Override

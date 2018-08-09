@@ -8,17 +8,12 @@ import android.support.v7.app.AppCompatActivity;
 import android.widget.Toast;
 
 import java.lang.ref.WeakReference;
-import java.util.Set;
 
 /**Activity class that provides the basic functionality. Extend it to create your activity.**/
 public abstract class BaseActivity extends AppCompatActivity {
     private static WeakReference<BaseActivity> activity;
 
     private static Toast toast;    //Global toast
-
-    private static boolean restartOnNewProcess = true;
-
-    private static boolean isNewProcess = true;
 
     public static BaseActivity get(){
         return activity.get();
@@ -34,23 +29,6 @@ public abstract class BaseActivity extends AppCompatActivity {
 
         if(toast == null)
             toast = Toast.makeText(getApplicationContext(), "", Toast.LENGTH_SHORT);
-
-        //Check if OS launched a new process for the application
-        if(restartOnNewProcess && isNewProcess) {
-            Intent intent = getIntent();
-
-            String action = intent.getAction();
-
-            Set<String> categories = intent.getCategories();
-
-            //Check if current activity is the launcher activity
-            if(action != null && categories != null && action.equals(Intent.ACTION_MAIN) && categories.contains(Intent.CATEGORY_LAUNCHER))
-                isNewProcess = false;
-
-            //If process was killed, restart the application
-            if(isNewProcess)
-                restartApplication();
-        }
     }
 
     @Override
@@ -88,12 +66,6 @@ public abstract class BaseActivity extends AppCompatActivity {
      * You can avoid coupling activity and fragment by overriding this method.**/
     public Object request(int requestCode, @Nullable Object... args){
         return null;
-    }
-
-    /**If restartOnNewProcess is true, application will restart from the launcher activity when it needs to get back from a dead process.
-     * The default value of restartOnNewProcess is true. If the activity is already the launcher activity, this will do nothing.**/
-    public void setRestartApplicationOnNewProcess(boolean restartOnNewProcess){
-        BaseActivity.restartOnNewProcess = restartOnNewProcess;
     }
 
     /**Display message with a short toast.**/

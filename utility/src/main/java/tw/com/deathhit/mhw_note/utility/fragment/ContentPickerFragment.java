@@ -1,4 +1,4 @@
-package tw.com.deathhit.mhw_note.utility.component;
+package tw.com.deathhit.mhw_note.utility.fragment;
 
 import android.Manifest;
 import android.content.ClipData;

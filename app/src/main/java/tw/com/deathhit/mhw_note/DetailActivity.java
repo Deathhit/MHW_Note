@@ -30,8 +30,6 @@ public final class DetailActivity extends BaseActivity {
         if(savedInstanceState != null)
             isInitialized = true;
 
-        setFragmentContainer(R.id.frameLayout);
-
         //Initialize fragment if there is no previous state
         if(savedInstanceState == null) {
             new Handler(Looper.getMainLooper()).post(new Runnable() {
@@ -113,5 +111,10 @@ public final class DetailActivity extends BaseActivity {
         }
 
         return fragment;
+    }
+
+    @Override
+    public int getContainerId() {
+        return R.id.frameLayout;
     }
 }

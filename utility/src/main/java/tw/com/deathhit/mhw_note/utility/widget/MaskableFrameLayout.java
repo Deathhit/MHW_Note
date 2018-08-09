@@ -16,7 +16,6 @@
 package tw.com.deathhit.mhw_note.utility.widget;
 
 import android.content.Context;
-import android.content.res.Resources;
 import android.content.res.TypedArray;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
@@ -284,14 +283,6 @@ public class MaskableFrameLayout extends FrameLayout {
             finalMask.recycle();
 
         finalMask = newMask;
-    }
-
-    public void setMask(int drawableRes) {
-        Resources res = getResources();
-
-        if (res != null)
-            setMask(res.getDrawable(drawableRes));
-
     }
 
     public void setMask(@Nullable Drawable input) {

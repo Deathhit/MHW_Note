@@ -1,4 +1,4 @@
-package tw.com.deathhit.mhw_note.utility.component;
+package tw.com.deathhit.mhw_note.utility.activity;
 
 import android.media.MediaPlayer;
 import android.os.Bundle;

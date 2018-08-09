@@ -5,13 +5,13 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 
+/**Activity class that supports fragment in simple containers.**/
 public abstract class FragmentActivity extends BaseActivity{
     public static FragmentActivity get() {
         return (FragmentActivity)BaseActivity.get();
     }
 
-    private int containerId;    //This is the id used to represent container of fragment
-
+    /**Allows fragment to implement onBackPressed().**/
     @Override
     public void onBackPressed() {
         if(getCurrentFragment() == null || !getCurrentFragment().onBackPressed())
@@ -25,25 +25,20 @@ public abstract class FragmentActivity extends BaseActivity{
         manager.popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
     }
 
-    /**Get the container id assigned by setFragmentContainer().**/
-    public int getContainerId(){
-        return containerId;
-    }
-
     /**Get the current fragment shown on the container.**/
     @Nullable
     public BaseFragment getCurrentFragment(){
-        return (BaseFragment)getSupportFragmentManager().findFragmentById(containerId);
+        return (BaseFragment)getSupportFragmentManager().findFragmentById(getContainerId());
     }
 
     /**Replace the content of the container set by setFragmentContainer(). Throws exception if containerId is not set.
-     * Use fragment.getClass().getName() as fragment tag.**/
+     * Use fragment.getClass().getName() as fragment tag. Call commit() after this.**/
     public FragmentTransaction setFragment(@NonNull BaseFragment fragment, boolean addToBackStack){
         return setFragment(fragment, getContainerId(), addToBackStack);
     }
 
     /**Replace the content of target container with another fragment. You can add side effects by overriding this method.
-     * Use fragment.getClass().getName() as fragment tag.**/
+     * Use fragment.getClass().getName() as fragment tag. Call commit() after this.**/
     public FragmentTransaction setFragment(@NonNull BaseFragment fragment, int containerId, boolean addToBackStack){
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
 
@@ -54,8 +49,6 @@ public abstract class FragmentActivity extends BaseActivity{
         return transaction;
     }
 
-    /**Provide a container for setFragment() method.**/
-    protected void setFragmentContainer(int id){
-        this.containerId = id;
-    }
+    /**Get a view id for setFragment() method as the container id.**/
+    public abstract int getContainerId();
 }
